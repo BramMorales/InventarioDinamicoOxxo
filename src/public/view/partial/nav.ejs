@@ -1,0 +1,20 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="/style.css" />
+    </head>
+    <body>
+        <div class="red-header py-2 px-4 yellow-border">
+            <div class="flex items-center">
+                <a href="/Inicio">
+                    <img src="/Logo.png" alt="OXXO Logo" id="logo" width="120" height="60">
+                </a> 
+                <%if(usuario) {%>
+                    <div id="userModal">
+                        <img id="user" src="/User2.png" width="60" height="60">
+                        <span id="nombre"><%= usuario.apellido %>, <%= usuario.nombre %>.</span>   
+                    </div>
+                <%}%>
+            </div>
+        </div>
+    </body>
+</html>

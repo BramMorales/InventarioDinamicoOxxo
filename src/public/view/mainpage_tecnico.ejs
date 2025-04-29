@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/Icono.png">
+    <title>OXXO - Inventario</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="/mainpage_tecnico.js" defer></script>
+    <link rel="stylesheet" href="/style.css" />
+</head>
+<body class="bg-gray-100">
+    <%- include('./partial/nav') %>
+
+    <%- include('./partial/menu') %>
+
+    <div class="store-name">
+      <h5 id="lbl_tienda">Mi inventario</h5>
+    </div>
+    
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th colspan="6" class="text-lg font-semibold bg-yellow-400 p-4">ISLA</th>
+          </tr>
+          <tr>
+            <th class="bg-black text-white p-4">Activo</th>
+            <th class="bg-black text-white p-4">Descripción del activo</th>
+            <th class="bg-black text-white p-4">Año</th>
+            <th class="bg-black text-white p-4">Modelo</th>
+            <th class="bg-black text-white p-4">Número de serie</th>
+            <th class="bg-black text-white p-4">Observaciones</th>
+            <th class="bg-black text-white p-4"></th>
+          </tr>
+        </thead>
+        <tbody id="tabla_isla"></tbody>
+      </table>
+  
+      <table>
+        <thead>
+          <tr>
+            <th colspan="6" class="text-lg font-semibold bg-yellow-400 p-4" >CCTV</th>
+          </tr>
+          <tr>
+            <th class="bg-black text-white p-4">Activo</th>
+            <th class="bg-black text-white p-4">Descripción del activo</th>
+            <th class="bg-black text-white p-4">Año</th>
+            <th class="bg-black text-white p-4">Modelo</th>
+            <th class="bg-black text-white p-4">Número de serie</th>
+            <th class="bg-black text-white p-4">Observaciones</th>
+          </tr>
+        </thead>
+        <tbody id="tabla_cctv"></tbody>
+      </table>
+
+      <table>
+        <thead>
+          <tr>
+            <th colspan="6" class="text-lg font-semibold bg-yellow-400 p-4">SITE</th>
+          </tr>
+          <tr>
+            <th class="bg-black text-white p-4">Activo</th>
+            <th class="bg-black text-white p-4">Descripción del activo</th>
+            <th class="bg-black text-white p-4">Año</th>
+            <th class="bg-black text-white p-4">Modelo</th>
+            <th class="bg-black text-white p-4">Número de serie</th>
+            <th class="bg-black text-white p-4">Observaciones</th>
+          </tr>
+        </thead>
+        <tbody id="tabla_site"></tbody>
+      </table>
+
+      <table>
+        <thead>
+          <tr>
+            <th colspan="6" class="text-lg font-semibold bg-yellow-400 p-4">MOVILIDAD</th>
+          </tr>
+          <tr>
+            <th class="bg-black text-white p-4">Activo</th>
+            <th class="bg-black text-white p-4">Descripción del activo</th>
+            <th class="bg-black text-white p-4">Año</th>
+            <th class="bg-black text-white p-4">Modelo</th>
+            <th class="bg-black text-white p-4">Número de serie</th>
+            <th class="bg-black text-white p-4">Observaciones</th>
+          </tr>
+        </thead>
+        <tbody id="tabla_movilidad"></tbody>
+      </table>
+    </div>
+
+    <script>
+      window._usuario = "<%= usuario.id %>";
+    </script>
+</body>
+</html>

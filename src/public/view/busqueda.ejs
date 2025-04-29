@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/Icono.png">
+    <title>OXXO - Búsqueda</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="/busqueda.js" defer></script>
+    <link rel="stylesheet" href="/style.css" />
+</head>
+<body class="bg-gray-100">
+    <%- include('./partial/nav') %>
+    <%- include('./partial/menu') %>
+
+        <div class="search-filter-container">
+            <form class="search-input-container" id="frm_buscar">
+                <input type="text" class="search-input" placeholder="Buscar..." id="txt_buscar" name="txt_buscar">
+                <div class="search-icon">
+                    <button type="submit"> Buscar </button>
+                </div>
+            </form>
+            <div class="filter-dropdown">
+                <div class="filter-select">
+                    <span class="filter-select-text" id="lst_filtro">Seleccionar un filtro</span>
+                    <img src="https://cdn-icons-png.flaticon.com/512/32/32195.png" alt="Flecha abajo" class="h-4">
+                </div>
+                <div class="filter-options">
+                    <div class="filter-option" data-value="activo">Activo</div>
+                    <div class="filter-option" data-value="tienda">Tienda</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="results-container" id="lbl_resultado">
+            <div class="result-box">
+                <h2>Resultados de la búsqueda</h2>
+            </div>
+
+        </div>
+</body>
+</html>

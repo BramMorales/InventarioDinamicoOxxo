@@ -1,0 +1,34 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="/style.css" />
+        
+    </head>
+    <body>
+        <div class="side-menu">
+            <% if (usuario.rol!=0) { %>
+            <a href="/Busqueda"><div class="side-menu-item">Buscador</div></a>
+            <div class="side-menu-item" id="btn_bodega">Bodega</div>
+            <script src="/bodega.js" defer></script>
+            <% if (usuario.rol!=1) { %>
+                <div class="side-menu-item">Tiendas</div>
+                <div class="side-menu-item">Tecnicos</div>
+                <div class="side-menu-item">Proyectos</div>
+            <% }%>
+            <% }else {%>
+                <div class="side-menu-item">Usuarios</div>
+                <div class="side-menu-item">Tiendas</div>
+                <div class="side-menu-item">Plazas</div>
+                <div class="side-menu-item">Regiones</div>
+            <% }%>
+            <div class="side-menu-item" id="logout">Cerrar sesión</div>
+            <script>
+            </script>
+            <script src="/cerrar_sesion.js" defer></script>
+            <script>
+                window._plaza = "<%= usuario.plaza %>";
+                window._region = "<%= usuario.region %>";
+            </script>
+        </div>
+    </body>
+</html>
+

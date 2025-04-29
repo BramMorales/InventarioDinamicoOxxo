@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/Icono.png">
+    <title>OXXO - Iniciar Sesión</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="/iniciar_sesion.js" defer></script>
+    <link rel="stylesheet" href="/style.css" />
+</head>
+<body class="bg-white">
+    <%- include('./partial/nav') %>
+ 
+    <div class="container">
+        <div class="bg-white rounded-lg shadow-md p-8 w-full max-w-md">
+            <img src="/User1.png" id="User1" width="100" height="100"><br>
+            <h1 class="text-gray-800 text-2xl font-semibold text-center mb-4">Iniciar sesión</h1>
+
+            <form id="loginForm" class="space-y-4">
+                <div>
+                    <label for="username" class="block text-gray-700 text-sm font-bold mb-2">Usuario</label>
+                    <input type="text" id="username" name="username" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Ingrese su usuario">
+                    <div id="username-error" class="text-red-500 text-xs italic" style="display: none;"></div>
+                </div>
+
+                <div>
+                    <label for="password" class="block text-gray-700 text-sm font-bold mb-2">Contraseña</label>
+                    <input type="password" id="password" name="password" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Ingrese su contraseña">
+                    <div id="password-error" class="text-red-500 text-xs italic" style="display: none;"></div>
+                </div>
+
+                <button type="submit" class="bg-yellow-500 hover:bg-yellow-700 text-gray-800 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full">
+                    Iniciar sesión
+                </button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
