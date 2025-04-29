@@ -1,0 +1,1 @@
+Este proyecto plantea desarrollar una plataforma web para la gestión de activos fijos en el área de sistemas de Oxxo, que permita registrar y rastrear sus movimientos en tiempo real, asegurando una trazabilidad eficiente.
