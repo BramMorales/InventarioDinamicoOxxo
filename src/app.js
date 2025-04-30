@@ -42,7 +42,6 @@ app.use((req, res, next) => {
     if (token) {
       try {
         res.locals.usuario = jwt.verify(token, config.jwt.secret);
-        console.log(res.locals.usuario)
       } catch(err) {
         console.error('Falló jwt.verify:', err.message);
       }
@@ -64,11 +63,17 @@ app.use(error);
 
 //Rutas URl
 app.get("/Iniciar_Sesion", authorization.soloNoUsuarios, (req,res)=>{res.render('login')});
-app.get("/Inicio", authorization.soloUsuarios, authorization.permisos, (req,res)=>{res.render('mainpage_tecnico')});
-app.get("/_Inicio", authorization.soloUsuarios, (req,res)=>{res.render('main')});
+
+//Tecnico
+app.get("/Inicio", authorization.soloUsuarios, (req,res)=>{res.render('mainpage_tecnico')});
+app.get("/_Inicio", authorization.soloUsuarios, authorization.permisos, (req,res)=>{res.render('main')});
 app.get("/Busqueda", authorization.soloUsuarios, (req,res)=>{res.render('busqueda')});
 app.get("/Tienda", authorization.soloUsuarios, (req,res)=>{res.render('tienda')});
 app.get("/Tienda/Agregar", authorization.soloUsuarios, (req,res)=>{res.render('agregar')});
+
+//Admin
+app.get("/Consulta", authorization.soloUsuarios, (req,res)=>{res.render('consulta')});
+
 app.get('/logout', (req, res) => {res.clearCookie('jwt', { path: '/' }); res.redirect('/Iniciar_Sesion');});
 
 //"Return"

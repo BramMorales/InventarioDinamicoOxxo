@@ -22,8 +22,8 @@ async function soloNoUsuarios(req, res, next) {
 
 async function permisos(req, res, next) {
     const log = await revisarCookie(req);
-    if (log.rol_auth == 1) return next();
-    return res.redirect("/_Inicio");
+    if (log.rol_auth == 1) return res.redirect("/Inicio");
+    return next();
 
 }
 

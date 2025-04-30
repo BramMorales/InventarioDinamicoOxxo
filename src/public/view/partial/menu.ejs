@@ -8,17 +8,18 @@
             <% if (usuario.rol!=0) { %>
             <a href="/Busqueda"><div class="side-menu-item">Buscador</div></a>
             <div class="side-menu-item" id="btn_bodega">Bodega</div>
-            <script src="/bodega.js" defer></script>
+            <script src="/tecnico_menu.js" defer></script>
             <% if (usuario.rol!=1) { %>
                 <div class="side-menu-item">Tiendas</div>
                 <div class="side-menu-item">Tecnicos</div>
                 <div class="side-menu-item">Proyectos</div>
             <% }%>
             <% }else {%>
-                <div class="side-menu-item">Usuarios</div>
-                <div class="side-menu-item">Tiendas</div>
-                <div class="side-menu-item">Plazas</div>
-                <div class="side-menu-item">Regiones</div>
+                <div class="side-menu-item" id="btn_usuarios">Usuarios</div>
+                <div class="side-menu-item" id="btn_tiendas">Tiendas</div>
+                <div class="side-menu-item" id="btn_plazas">Plazas</div>
+                <div class="side-menu-item" id="btn_regiones">Regiones</div>
+                <script src="/admin_menu.js" defer></script>
             <% }%>
             <div class="side-menu-item" id="logout">Cerrar sesión</div>
             <script>
