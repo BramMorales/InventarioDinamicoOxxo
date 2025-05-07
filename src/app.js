@@ -62,7 +62,7 @@ app.use('/api/auth', auth);
 app.use(error);
 
 //Rutas URl
-app.get("/Iniciar_Sesion", authorization.soloNoUsuarios, (req,res)=>{res.render('login')});
+app.get("/https://inventariodinamicooxxo.onrender.com/", authorization.soloNoUsuarios, (req,res)=>{res.render('login')});
 
 //Tecnico
 app.get("/Inicio", authorization.soloUsuarios, (req,res)=>{res.render('mainpage_tecnico')});
