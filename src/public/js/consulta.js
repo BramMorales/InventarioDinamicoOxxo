@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     try {
         const endpoints = {
             '1': {
-              url: "http://localhost:4000/api/usuarios/",
+              url: "http://localhost:4000/api/usuarios/", 
               headers: [
                 "Id", "Nombre(s)", "Apellido paterno", "Apellido materno", "Plaza", "Usuario", "", ""
               ],
@@ -118,4 +118,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     } catch (err) {
         console.error("Error en la carga de resultados:", err.message);
     }
+});
+
+document.getElementById('btn_anadir').addEventListener('click', () => {
+  window.location.href = `/Agregar?type=4&table=${busqueda.tipo}`
 });

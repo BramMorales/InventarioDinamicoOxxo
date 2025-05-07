@@ -50,60 +50,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             document.getElementById('lbl_tienda').textContent = `${id.body[0].nombre_bodega}`;
         }
 
-        result.body.forEach((activo) => {
-            const renglon = document.createElement("tr");
-            const btnEliminar = document.createElement("button");
-            btnEliminar.dataset.id = activo.id_activofijo;
-            btnEliminar.dataset.class = "btn_eliminar";
-            btnEliminar.textContent = "Eliminar";
-            btnEliminar.type = "button";
-            btnEliminar.style.backgroundColor = "#ff5c5c";
-            btnEliminar.style.border = "none";
-            btnEliminar.style.color = "white";
-            btnEliminar.style.padding = "5px 10px";
-            btnEliminar.style.cursor = "pointer";
-            btnEliminar.style.borderRadius = "4px";
-
-            const btnHTML = btnEliminar.outerHTML;
-
-            var contenedor
-            switch(activo.lugar_activofijo)
-            {
-                case 1:
-                    contenedor = document.getElementById("tabla_isla");
-                    renglon.classList.add("tabla_isla");
-                break;
-
-                case 2:
-                    contenedor = document.getElementById("tabla_cctv");
-                    renglon.classList.add("tabla_cctv");
-                break;
-
-                case 3:
-                    contenedor = document.getElementById("tabla_site");
-                    renglon.classList.add("tabla_site");
-                break;
-
-                case 4:
-                    contenedor = document.getElementById("tabla_movilidad");
-                    renglon.classList.add("tabla_movilidad");
-                break;
-            }
-            
-            renglon.innerHTML = `
-                <tr>
-                    <th>${activo.codigobarras_activo}</th>
-                    <th>${activo.descripcion_activo}</th>
-                    <th>${activo.ano_activo}</th>
-                    <th>${activo.modelo_activo}</th>
-                    <th>${activo.serie_activo}</th>
-                    <th>${activo.observaciones_activo}</th>
-                    <th>${btnHTML}</th>
-                </tr>
-            `;
-
-            contenedor.appendChild(renglon);
-        });
+        llenarTabla(result, "Tienda")
           
     } catch (err) {
         console.error("Error en la carga de resultados:", err.message);
@@ -112,10 +59,10 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 document.getElementById('btn_anadir').addEventListener('click', async () => {
     if(busqueda.tipo == 2){
-        window.location.href = `/Tienda/Agregar?plaza=${busqueda.plaza}&region=${busqueda.region}&type=2`;
+        window.location.href = `/Agregar?plaza=${busqueda.plaza}&region=${busqueda.region}&type=2`;
     }
     else{
-        window.location.href = `/Tienda/Agregar?id=${busqueda.id}&type=${busqueda.tipo}`;
+        window.location.href = `/Agregar?id=${busqueda.id}&type=${busqueda.tipo}`;
     }
 });
 
