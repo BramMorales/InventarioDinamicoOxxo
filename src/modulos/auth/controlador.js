@@ -1,5 +1,5 @@
 const TABLA = 'auth';
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const auth = require('../../auth');
 
 module.exports = function (dbInyectada){
