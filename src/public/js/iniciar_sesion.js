@@ -10,7 +10,7 @@ document.getElementById("loginForm").addEventListener("submit", async (e) => {
   
     try {
       // Realiza la petición al servidor para autenticar al usuario
-      const res = await fetch("http://localhost:4000/api/auth/login", {
+      const res = await fetch("https://inventariodinamicooxxo.onrender.com/api/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
