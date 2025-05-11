@@ -47,21 +47,24 @@ function todos(tabla) {
 }
 
 function agregar(tabla, data) {
-    const columns = Object.keys(data).join(', ');
+    const columns = Object.keys(data);
     const values = Object.values(data);
     const valuePlaceholders = values.map((_, i) => `$${i + 1}`).join(', ');
 
+    const updateAssignments = columns.map(col => `${col} = EXCLUDED.${col}`).join(', ');
+
     return new Promise((resolve, reject) => {
         const query = `
-            INSERT INTO ${tabla} (${columns})
+            INSERT INTO ${tabla} (${columns.join(', ')})
             VALUES (${valuePlaceholders})
-            ON CONFLICT (codigo_region) DO UPDATE SET ${columns} = EXCLUDED.${columns}
+            ON CONFLICT (codigo_region) DO UPDATE SET ${updateAssignments}
         `;
         conexion.query(query, values, (error, result) => {
             return error ? reject(error) : resolve(result);
         });
     });
 }
+
 
 function eliminar(tabla, data) {
     return new Promise((resolve, reject) => {
