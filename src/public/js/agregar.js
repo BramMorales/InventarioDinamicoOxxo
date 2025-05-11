@@ -277,7 +277,7 @@ async function fetchJSON(url, options = {}) {
             });
           
             console.log(data)
-            /*try {
+            try {
               const res = await fetch(config.url, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -289,7 +289,7 @@ async function fetchJSON(url, options = {}) {
             } catch (err) {
               console.error("Error al registrar:", err);
               alert("No se pudo registrar el formulario");
-            }*/
+            }
           });
           break;
   
