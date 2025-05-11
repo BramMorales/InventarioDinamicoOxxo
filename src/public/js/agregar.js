@@ -267,7 +267,7 @@ async function fetchJSON(url, options = {}) {
                 data[c.name] = form.elements[c.name].value;
               } else if (i === 0 && c.value !== undefined) {
                 // Primer campo oculto (id_…)
-                data[c.name] = busqueda.id;
+                data[c.name] = parseInt(busqueda.id);
               } else {
                 // Inputs normales
                 data[c.name] = form.elements[c.name].value || "";
