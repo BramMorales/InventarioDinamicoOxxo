@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     try {
         var id;
         if(busqueda.tipo == 2){
-            const bodega = await fetch("http://localhost:4000/api/bodegas/localizacion/"+ busqueda.plaza + "&" + busqueda.region, {
+            const bodega = await fetch("/api/bodegas/localizacion/"+ busqueda.plaza + "&" + busqueda.region, {
                 method: "GET",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(),
@@ -22,13 +22,13 @@ document.addEventListener('DOMContentLoaded', async () => {
             console.log(busqueda.id)
         }
 
-        const res = await fetch("http://localhost:4000/api/activosfijos/ubicacion/" + busqueda.id + "&" + busqueda.tipo, {
+        const res = await fetch("/api/activosfijos/ubicacion/" + busqueda.id + "&" + busqueda.tipo, {
             method: "GET",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(),
         });
 
-        const res1 = await fetch("http://localhost:4000/api/tiendas/" + busqueda.id, {
+        const res1 = await fetch("/api/tiendas/" + busqueda.id, {
             method: "GET",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(),
@@ -77,7 +77,7 @@ document.body.addEventListener('click', async (event) => {
 
         try {
             // Realiza la petición para registrar al nuevo usuario
-            const res = await fetch("http://localhost:4000/api/activosfijos/agregar", {
+            const res = await fetch("/api/activosfijos/agregar", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(payload),

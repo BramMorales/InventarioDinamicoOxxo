@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     try {
         const endpoints = {
             '1': {
-              url: "http://localhost:4000/api/usuarios/", 
+              url: "/api/usuarios/", 
               headers: [
                 "Id", "Nombre(s)", "Apellido paterno", "Apellido materno", "Plaza", "Usuario", "", ""
               ],
@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', async () => {
               tienda: "Usuarios"
             },
             '2': {
-              url: "http://localhost:4000/api/tiendas/",
+              url: "/api/tiendas/",
               headers: [
                 "Id", "CR", "Region", "Plaza", "Nombre", "", ""
               ],
@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', async () => {
               tienda: "Tienda"
             },
             '3': {
-              url: "http://localhost:4000/api/plazas/",
+              url: "/api/plazas/",
               headers: [
                 "Id", "Region", "Nombre", "", ""
               ],
@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', async () => {
               tienda: "Plazas"
             },
             '4': {
-              url: "http://localhost:4000/api/regiones/",
+              url: "/api/regiones/",
               headers: [
                 "Id", "Nombre(s)", "", ""
               ],

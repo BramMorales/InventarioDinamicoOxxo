@@ -71,7 +71,7 @@ async function fetchJSON(url, options = {}) {
   
   async function anadirActivo () {
     const user = window._usuario;
-    const res = await fetch("http://localhost:4000/api/activosfijos/ubicacion/" + user + "&" + 1, {
+    const res = await fetch("/api/activosfijos/ubicacion/" + user + "&" + 1, {
       method: "GET",
       headers: { "Content-Type": "application/json" }
     });
@@ -86,7 +86,7 @@ async function fetchJSON(url, options = {}) {
   
       switch (busqueda.tipo) {
         case '0':
-          res1 = await fetch("http://localhost:4000/api/tiendas/" + busqueda.id, { method: "GET", headers: { "Content-Type": "application/json" } });
+          res1 = await fetch("/api/tiendas/" + busqueda.id, { method: "GET", headers: { "Content-Type": "application/json" } });
           result1 = await res1.json();
           document.getElementById('lbl_titulo').textContent = `OXXO - ${result1.body[0].nombre_tienda}`;
           document.getElementById('lbl_tienda').textContent = result1.body[0].nombre_tienda;
@@ -99,7 +99,7 @@ async function fetchJSON(url, options = {}) {
   
         case '2':
           {
-            const b = await fetchJSON("http://localhost:4000/api/bodegas/localizacion/"+ busqueda.plaza + "&" + busqueda.region);
+            const b = await fetchJSON("/api/bodegas/localizacion/"+ busqueda.plaza + "&" + busqueda.region);
             busqueda.id = b.body[0].id_bodega;
             document.getElementById('lbl_titulo').textContent = `OXXO - ${b.body[0].nombre_bodega}`;
             document.getElementById('lbl_tienda').textContent = b.body[0].nombre_bodega;
@@ -112,7 +112,7 @@ async function fetchJSON(url, options = {}) {
           const formularios = {
             '1': {
               titulo: "Usuario",
-              url:    "http://localhost:4000/api/usuarios/agregar/",
+              url:    "/api/usuarios/agregar/",
               campos: [
                 { name: "id_usuario",        value: 0 },
                 { name: "nombre_usuario",    label: "Nombre",           type: "text",     required: true },
@@ -136,14 +136,14 @@ async function fetchJSON(url, options = {}) {
                   label: "Plaza", 
                   type: "select", 
                   required: true ,
-                   optionsEndpoint: "http://localhost:4000/api/plazas/"
+                   optionsEndpoint: "/api/plazas/"
                 },
                 { name: "contrasena_auth",   label: "Contraseña",        type: "password", required: true }
               ]
             },
             '2': {
                 titulo: "Tienda",
-                url: "http://localhost:4000/api/tiendas/agregar",
+                url: "/api/tiendas/agregar",
                 campos: [
                     { name: "id_tienda", value: 0},
                     { name: "cr_tienda", label: "CR", type: "text", required: true },
@@ -152,7 +152,7 @@ async function fetchJSON(url, options = {}) {
                         label: "Plaza", 
                         type: "select", 
                         required: true,
-                        optionsEndpoint: "http://localhost:4000/api/plazas/"
+                        optionsEndpoint: "/api/plazas/"
                     },
                     { name: "nombre_tienda", label: "Nombre", type: "text", required: true }
                 ]
@@ -160,7 +160,7 @@ async function fetchJSON(url, options = {}) {
 
             '3': {
                 titulo: "Plaza",
-                url: "http://localhost:4000/api/plazas/agregar",
+                url: "/api/plazas/agregar",
                 campos: [
                     { name: "id_plaza", value: 0},
                     { 
@@ -168,7 +168,7 @@ async function fetchJSON(url, options = {}) {
                         label: "Región", 
                         type: "select", 
                         required: true,
-                        optionsEndpoint: "http://localhost:4000/api/regiones/"
+                        optionsEndpoint: "/api/regiones/"
                     },
                     { name: "nombre_plaza", label: "Nombre", type: "text", required: true }
                 ]
@@ -176,7 +176,7 @@ async function fetchJSON(url, options = {}) {
 
             '4': {
                 titulo: "Region",
-                url: "http://localhost:4000/api/regiones/agregar",
+                url: "/api/regiones/agregar",
                 campos: [
                     { name: "codigo_region", value: 0},
                     { name: "nombre_region", label: "Nombre", type: "text", required: true }

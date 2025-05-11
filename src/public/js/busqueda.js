@@ -41,7 +41,7 @@ document.getElementById('frm_buscar').addEventListener('submit', async (e)=>{
         let res;
         if(document.getElementById('lst_filtro').textContent == "Tienda")
         {
-            res = await fetch("http://localhost:4000/api/tiendas/busqueda/" + valor, {
+            res = await fetch("/api/tiendas/busqueda/" + valor, {
                 method: "GET",
                 headers: { "Content-Type": "application/json" },
             });

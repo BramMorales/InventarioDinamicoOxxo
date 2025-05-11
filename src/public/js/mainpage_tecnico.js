@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const user = window._usuario;
 
     try {
-        const res = await fetch("http://localhost:4000/api/activosfijos/ubicacion/" + user + "&" + 1, {
+        const res = await fetch("/api/activosfijos/ubicacion/" + user + "&" + 1, {
             method: "GET",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(),
