@@ -162,7 +162,7 @@ async function fetchJSON(url, options = {}) {
                 campos: [
                     { name: "id_plaza", value: 0},
                     { 
-                        name: "codigoregion_plaza", 
+                        name: "idregion_plaza", 
                         label: "Región", 
                         type: "select", 
                         required: true,
@@ -176,7 +176,7 @@ async function fetchJSON(url, options = {}) {
                 titulo: "Region",
                 url: "/api/regiones/agregar",
                 campos: [
-                    { name: "codigo_region", value: 0},
+                    { name: "id_region", value: 0},
                     { name: "nombre_region", label: "Nombre", type: "text", required: true }
                 ]
             }
