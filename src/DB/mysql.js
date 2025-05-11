@@ -57,7 +57,7 @@ function agregar(tabla, data) {
         const query = `
             INSERT INTO ${tabla} (${columns.join(', ')})
             VALUES (${valuePlaceholders})
-            ON CONFLICT (codigo_region) DO UPDATE SET ${updateAssignments}
+            ON CONFLICT (id_region) DO UPDATE SET ${updateAssignments}
         `;
         conexion.query(query, values, (error, result) => {
             return error ? reject(error) : resolve(result);
