@@ -74,7 +74,7 @@ app.get("/Agregar", authorization.soloUsuarios, (req,res)=>{res.render('agregar'
 //Admin
 app.get("/Consulta", authorization.soloUsuarios, (req,res)=>{res.render('consulta')});
 
-app.get('/logout', (req, res) => {res.clearCookie('jwt', { path: '/' }); res.redirect('/Iniciar_Sesion');});
+app.get('/logout', (req, res) => {res.clearCookie('jwt', { path: '/' }); res.redirect('/');});
 
 //"Return"
 module.exports = app;

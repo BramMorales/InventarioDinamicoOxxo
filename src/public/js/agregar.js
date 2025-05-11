@@ -57,8 +57,6 @@ async function fetchJSON(url, options = {}) {
     return div;
   }
   
-  
-  
   // — Inicio de tu código
   const urlParams = new URLSearchParams(window.location.search);
   const busqueda = {

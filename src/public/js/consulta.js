@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', async () => {
               headers: [
                 "Id", "Nombre(s)", "Apellido paterno", "Apellido materno", "Plaza", "Usuario", "", ""
               ],
-              fields:  [ "id_usuario", "nombre_usuario",  "apellidop_usuario",  "apellidom_usuario",  "plaza",  "",     "__btn__", "__btn2__" ],
+              fields:  [ "id_usuario", "nombre_usuario",  "apellidop_usuario",  "apellidom_usuario",  "idplaza_usuario",  "",     "__btn__", "__btn2__" ],
               titulo: "OXXO - Usuarios",
               tienda: "Usuarios"
             },
@@ -102,7 +102,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                       cursor: pointer;
                       border-radius: 4px;
                     "
-                  >Modificar</button>
+                  ><a href="/Agregar?type=4&table=${busqueda.tipo}&id=${obj[ config.fields[0] ]}">Modificar</a></button>
                 `;
               }
               else{
@@ -121,5 +121,5 @@ document.addEventListener('DOMContentLoaded', async () => {
 });
 
 document.getElementById('btn_anadir').addEventListener('click', () => {
-  window.location.href = `/Agregar?type=4&table=${busqueda.tipo}`
+  window.location.href = `/Agregar?type=4&table=${busqueda.tipo}&id=0`
 });
