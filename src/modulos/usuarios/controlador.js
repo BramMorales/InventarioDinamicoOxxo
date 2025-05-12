@@ -19,9 +19,9 @@ module.exports = function (dbInyectada){
         return db.query(TABLA, {id_usuario: id_usuario});
     }
 
-    function eliminar(body)
+    function eliminar(id_usuario)
     {
-        return db.eliminar(TABLA, body);
+        return db.eliminar(TABLA, id_usuario);
     }
 
     async function agregar(body)

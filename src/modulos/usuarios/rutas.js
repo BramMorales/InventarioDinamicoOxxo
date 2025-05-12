@@ -37,7 +37,7 @@ async function uno(req, res, next){
 
 async function eliminar (req, res, next) {
     try{
-        const items = await controlador.eliminar(req.body);
+        const items = await controlador.eliminar(req.params.id_usuario);
         respuesta.success(req, res, 'Item eliminado', 200);
     }
     catch (err) {

@@ -31,7 +31,7 @@ module.exports = function (dbInyectada){
                 nombre: user_extra.nombre_usuario,
                 apellido: user_extra.apellidop_usuario,
                 plaza: user_extra.idplaza_usuario,
-                region: plaza.codigoregion_plaza,
+                region: plaza.idregion_plaza,
             };
             
             return token = auth.asignarToken(res, payload);

@@ -270,6 +270,9 @@ async function fetchJSON(url, options = {}) {
                 if(busqueda.id != 0){
                   data[c.name] = parseInt(busqueda.id);
                 }
+                else{
+                  data[c.name] = 0;
+                }
               } else {
                 // Inputs normales
                 data[c.name] = form.elements[c.name].value || "";

@@ -6,7 +6,7 @@ const busqueda = {
     tipo: urlParams.get('type'),
 };
 const user = window._usuario;
-
+console.log(user)
 document.addEventListener('DOMContentLoaded', async () => {
     try {
         var id;

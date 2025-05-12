@@ -92,11 +92,15 @@ function agregar(tabla, data) {
   }
   
 
-function eliminar(tabla, data) {
+function eliminar(tabla, consulta) {
+    const keys = Object.keys(consulta);
+    const conditions = keys.map((key, i) => `${key} = $${i + 1}`).join(' AND ');
+    const values = Object.values(consulta);
+
     return new Promise((resolve, reject) => {
-        const query = `DELETE FROM ${tabla} WHERE codigo_region = $1`;
-        conexion.query(query, [data.codigo_region], (error, result) => {
-            return error ? reject(error) : resolve(result);
+        const query = `DELETE FROM ${tabla} WHERE ${conditions}`;
+        conexion.query(query, values, (error, result) => {
+            return error ? reject(error) : resolve(result.rows);
         });
     });
 }
