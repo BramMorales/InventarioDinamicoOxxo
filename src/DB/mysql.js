@@ -47,36 +47,50 @@ function todos(tabla) {
 }
 
 function agregar(tabla, data) {
-    const columns = Object.keys(data);
-    const values = Object.values(data);
-    const valuePlaceholders = values.map((_, i) => `$${i + 1}`).join(', ');
-
-    // Detectar clave de conflicto: primera propiedad que comience con "id_"
-    const conflictKey = columns.find(col => col.startsWith('id_'));
-
-    if (!conflictKey) {
-        return Promise.reject(new Error("No se pudo determinar una clave de conflicto en los datos"));
+    // 1. Detección de la clave primaria en data:
+    const key = Object.keys(data).find(k => /^id_/.test(k) || /^codigo_/.test(k));
+    if (!key) {
+      return Promise.reject(new Error("No se encontró campo ID en data"));
     }
-
-    // Construir cláusula de actualización
-    const updateAssignments = columns
-        .filter(col => col !== conflictKey)  // evita re-asignar la clave primaria
-        .map(col => `${col} = EXCLUDED.${col}`)
-        .join(', ');
-
-    const query = `
-        INSERT INTO ${tabla} (${columns.join(', ')})
-        VALUES (${valuePlaceholders})
-        ON CONFLICT (${conflictKey}) DO UPDATE SET ${updateAssignments}
-    `;
-
-    return new Promise((resolve, reject) => {
-        conexion.query(query, values, (error, result) => {
-            return error ? reject(error) : resolve(result);
-        });
-    });
-}
-
+  
+    // 2. Separamos el valor de ID y el resto de columnas
+    const idValue = data[key];
+    const updates = { ...data };
+    delete updates[key];
+  
+    if (!idValue) {
+      // ---- SIN ID: hacemos INSERT ----
+      const cols = Object.keys(updates);
+      const vals = Object.values(updates);
+      const placeholders = vals.map((_, i) => `$${i+1}`).join(', ');
+  
+      const sql = `
+        INSERT INTO ${tabla} (${cols.join(', ')})
+        VALUES (${placeholders})
+        RETURNING *;
+      `;
+      return new Promise((res, rej) => {
+        conexion.query(sql, vals, (err, result) => err ? rej(err) : res(result.rows[0]) );
+      });
+    } else {
+      // ---- CON ID: hacemos UPDATE ----
+      const cols = Object.keys(updates);
+      const vals = Object.values(updates);
+      // construimos SET col1=$1, col2=$2, ...
+      const setClause = cols.map((c, i) => `${c} = $${i+1}`).join(', ');
+      // el parámetro final es el idValue
+      const sql = `
+        UPDATE ${tabla}
+        SET ${setClause}
+        WHERE ${key} = $${cols.length + 1}
+        RETURNING *;
+      `;
+      return new Promise((res, rej) => {
+        conexion.query(sql, [...vals, idValue], (err, result) => err ? rej(err) : res(result.rows[0]) );
+      });
+    }
+  }
+  
 
 function eliminar(tabla, data) {
     return new Promise((resolve, reject) => {
