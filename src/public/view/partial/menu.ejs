@@ -1,34 +1,24 @@
 <html>
     <head>
         <link rel="stylesheet" href="/style.css" />
-        
     </head>
     <body>
         <div class="side-menu">
             <% if (usuario.rol!=0) { %>
             <a href="/Busqueda"><div class="side-menu-item">Buscador</div></a>
-            <div class="side-menu-item" id="btn_bodega">Bodega</div>
-            <script src="/menu/tecnico_menu.js" defer></script>
+            <div class="side-menu-item" id="btn_bodega"><a href="/Tienda?plaza=<%= usuario.plaza %>&region=<%= usuario.region %>&type=2"></a>Bodega</div>
             <% if (usuario.rol!=1) { %>
-                <div class="side-menu-item">Tiendas</div>
+                <div class="side-menu-item"><a href="/Tiendas">Tiendas</a></div>
                 <div class="side-menu-item">Tecnicos</div>
                 <div class="side-menu-item">Proyectos</div>
             <% }%>
             <% }else {%>
-                <div class="side-menu-item" id="btn_usuarios">Usuarios</div>
-                <div class="side-menu-item" id="btn_tiendas">Tiendas</div>
-                <div class="side-menu-item" id="btn_plazas">Plazas</div>
-                <div class="side-menu-item" id="btn_regiones">Regiones</div>
-                <script src="/menu/admin_menu.js" defer></script>
+                <div class="side-menu-item" id="btn_usuarios"><a href="/Consulta?type=1">Usuarios</a></div>
+                <div class="side-menu-item" id="btn_tiendas"><a href="/Consulta?type=2">Tiendas</a></div>
+                <div class="side-menu-item" id="btn_plazas"><a href="/Consulta?type=3">Plazas</a></div>
+                <div class="side-menu-item" id="btn_regiones"><a href="/Consulta?type=4">Regiones</a></div>
             <% }%>
-            <div class="side-menu-item" id="logout">Cerrar sesión</div>
-            <script>
-            </script>
-            <script src="/menu/cerrar_sesion.js" defer></script>
-            <script>
-                window._plaza = "<%= usuario.plaza %>";
-                window._region = "<%= usuario.region %>";
-            </script>
+            <div class="side-menu-item" id="logout"><a href="/logout">Cerrar sesión</a></div>
         </div>
     </body>
 </html>

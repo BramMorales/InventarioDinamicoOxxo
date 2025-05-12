@@ -33,8 +33,6 @@ module.exports = function (dbInyectada){
                 plaza: user_extra.idplaza_usuario,
                 region: plaza.idregion_plaza,
             };
-
-            console.log(payload)
             
             return token = auth.asignarToken(res, payload);
         }
