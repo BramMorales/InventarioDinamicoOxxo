@@ -5,6 +5,8 @@ document.addEventListener('DOMContentLoaded', async () => {
             headers: { "Content-Type": "application/json" },
         });
 
+        const result = await res.json();
+
         result.body.forEach((activo) => {
             const renglon = document.createElement("tr");
             renglon.dataset.id = activo.id_activofijo;
