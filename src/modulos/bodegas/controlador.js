@@ -19,9 +19,9 @@ module.exports = function (dbInyectada){
         return db.query(TABLA, {id_bodega: id_bodega});
     }
 
-    function busqueda(idplaza_bodega,codigoregion_bodega)
+    function busqueda(idplaza_bodega,idregion_bodega)
     {
-        return db.and(TABLA, {idplaza_bodega: idplaza_bodega}, {codigoregion_bodega: codigoregion_bodega});
+        return db.and(TABLA, {idplaza_bodega: idplaza_bodega}, {idregion_bodega: idregion_bodega});
     }
 
     function eliminar(body)
