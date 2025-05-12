@@ -1,47 +1,56 @@
 document.addEventListener('DOMContentLoaded', async () => {
+    const container = document.getElementById('multiple_stores');
+  
     try {
-        const res = await fetch("/api/tiendas", {
-            method: "GET",
-            headers: { "Content-Type": "application/json" },
+      const resTiendas = await fetch("/api/tiendas", { headers: { "Content-Type": "application/json" } });
+      const { body: tiendas } = await resTiendas.json();
+  
+      for (const tienda of tiendas) {
+        // 1) crea el bloque padre
+        const storeWrapper = document.createElement('div');
+        storeWrapper.className = 'store-wrapper';
+        storeWrapper.id = `store-${tienda.id_tienda}`;
+        storeWrapper.innerHTML = `
+          <div class="store-name">
+            <h5>${tienda.nombre_tienda}</h5>
+          </div>
+        `;
+  
+        // 2) clona el template de la tabla
+        const tpl = document.getElementById('tpl-tabla');
+        const tablaClone = tpl.content.cloneNode(true);
+  
+        // 3) rellena el <tbody> de este clone con tus filas
+        const tbody = tablaClone.querySelector('tbody');
+        // obtienes los activos…
+        const resActivos = await fetch(
+          `/api/activosfijos/ubicacion/${tienda.id_tienda}&0`,
+          { headers: { "Content-Type": "application/json" } }
+        );
+        const { body: activos } = await resActivos.json();
+  
+        activos.forEach(activo => {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td>${activo.codigobarras_activo}</td>
+            <td>${activo.descripcion_activo}</td>
+            <td>${activo.ano_activo}</td>
+            <td>${activo.modelo_activo}</td>
+            <td>${activo.serie_activo}</td>
+            <td>${activo.observaciones_activo}</td>
+            <td><button class="btn-ver" data-id="${activo.id_activofijo}">Ver</button></td>
+          `;
+          tbody.appendChild(tr);
         });
-
-        const result = await res.json();
-
-        result.body.forEach(async (tienda) => {
-            const renglon2 = document.createElement("tr");
-            renglon2.dataset.id = tienda.id_tienda;
-    
-            var contenedor = document.getElementById("multiple_stores");
-            renglon2.innerHTML = `
-                <div class="store-name">
-                    <h5>${tienda.nombre_tienda}</h5>
-                </div>            
-                `;
-            
-            const tpl = document.getElementById('tpl-tabla');
-            const tablaClone = tpl.content.cloneNode(true);
-
-            const res = await fetch("/api/activosfijos/ubicacion/" + tienda.id_tienda + "&" + 0, {
-                method: "GET",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(),
-            });
-    
-            if (!res.ok) {
-                throw new Error(`Error en la petición: ${res.statusText}`);
-            }
-    
-            const result1 = await res.json();
-
-            console.log(result1)
-    
-            contenedor.appendChild(renglon2);
-            llenarTabla(result1, "Tecnico")
-        });
-
-        console.log()
-
+  
+        // 4) añades el clone completo al wrapper
+        storeWrapper.appendChild(tablaClone);
+  
+        // 5) y finalmente lo pegas al contenedor principal
+        container.appendChild(storeWrapper);
+      }
     } catch (err) {
-    console.error("Error en la carga de resultados:", err.message);
+      console.error("Error cargando tiendas/activos:", err);
     }
-});
+  });
+  
