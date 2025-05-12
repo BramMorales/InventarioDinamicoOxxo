@@ -3,7 +3,7 @@ function llenarTabla(result, num)
     result.body.forEach((activo) => {
         const renglon = document.createElement("tr");
         renglon.dataset.id = activo.id_activofijo;
-
+ 
         var contenedor
         switch(activo.lugar_activofijo)
         {
