@@ -15,7 +15,6 @@ module.exports = function (dbInyectada){
             const [user] = await db.query(TABLA, {usuario_auth: usuario_auth});
             const [user_extra] = await db.query('usuario', {id_usuario: user.idusuario_auth});
             const [plaza] = await db.query('plaza', {id_plaza: user_extra.idplaza_usuario,});
-            console.log(plaza.idregion_plaza)
 
             if (!user) {
                 throw new Error('Usuario no encontrado');
@@ -34,6 +33,8 @@ module.exports = function (dbInyectada){
                 plaza: user_extra.idplaza_usuario,
                 region: plaza.idregion_plaza,
             };
+
+            console.log(payload)
             
             return token = auth.asignarToken(res, payload);
         }
