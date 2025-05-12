@@ -30,9 +30,10 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
       
             const result1 = await res.json();
+
+            console.log(result1)
     
             contenedor.appendChild(renglon2);
-            llenarTabla(result1, "Tecnico")
         });
 
         console.log()
