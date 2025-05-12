@@ -1,89 +1,58 @@
-function llenarTabla(result, num)
-{
-    result.body.forEach((activo) => {
-        const renglon = document.createElement("tr");
-        renglon.dataset.id = activo.id_activofijo;
- 
-        var contenedor
-        switch(activo.lugar_activofijo)
-        {
-            case 1:
-                contenedor = document.getElementById("tabla_isla");
-                renglon.classList.add("tabla_isla");
-            break;
-
-            case 2:
-                contenedor = document.getElementById("tabla_cctv");
-                renglon.classList.add("tabla_cctv");
-            break;
-
-            case 3:
-                contenedor = document.getElementById("tabla_site");
-                renglon.classList.add("tabla_site");
-            break;
-
-            case 4:
-                contenedor = document.getElementById("tabla_movilidad");
-                renglon.classList.add("tabla_movilidad");
-            break;
-        }
-        
-        switch(num)
-        {
-            case 'Agregar':
-                renglon.innerHTML = `
-                <td><input type="checkbox"><label for="cb1"></label></td>
-                <td>${activo.codigobarras_activo}</td>
-                <td>${activo.descripcion_activo}</td>
-                <td>${activo.ano_activo}</td>
-                <td>${activo.modelo_activo}</td>
-                <td>${activo.serie_activo}</td>
-                <td>${activo.observaciones_activo}</td>
-                `;
-                break;
-
-            case 'Tienda':
-                const btnEliminar = document.createElement("button");
-                btnEliminar.dataset.id = activo.id_activofijo;
-                btnEliminar.dataset.class = "btn_eliminar";
-                btnEliminar.textContent = "Eliminar";
-                btnEliminar.type = "button";
-                btnEliminar.style.backgroundColor = "#ff5c5c";
-                btnEliminar.style.border = "none";
-                btnEliminar.style.color = "white";
-                btnEliminar.style.padding = "5px 10px";
-                btnEliminar.style.cursor = "pointer";
-                btnEliminar.style.borderRadius = "4px";
-
-                btnHTML = btnEliminar.outerHTML;
-
-                renglon.innerHTML = `
-                <tr>
-                    <th>${activo.codigobarras_activo}</th>
-                    <th>${activo.descripcion_activo}</th>
-                    <th>${activo.ano_activo}</th>
-                    <th>${activo.modelo_activo}</th>
-                    <th>${activo.serie_activo}</th>
-                    <th>${activo.observaciones_activo}</th>
-                    <th>${btnHTML}</th>
-                </tr>
-                `;
-                break;
-
-            case 'Tecnico':
-                renglon.innerHTML = `
-                <tr>
-                    <th>${activo.codigobarras_activo}</th>
-                    <th>${activo.descripcion_activo}</th>
-                    <th>${activo.ano_activo}</th>
-                    <th>${activo.modelo_activo}</th>
-                    <th>${activo.serie_activo}</th>
-                    <th>${activo.observaciones_activo}</th>
-                </tr>
-                `;
-                break;
-        }
-        
-        contenedor.appendChild(renglon);
+/**
+ * result: el JSON que trae { body: [...] }
+ * modo:   'Agregar' | 'Tienda' | 'Tecnico'
+ * root:   elemento dentro del cual buscar los TBODYs (no globalmente)
+ */
+function llenarTabla(result, modo, root = document) {
+    result.body.forEach(activo => {
+      const tr = document.createElement('tr');
+      tr.dataset.id = activo.id_activofijo;
+  
+      // 1) Elige cuál tbody usar
+      let tbody;
+      switch (activo.lugar_activofijo) {
+        case 1: tbody = root.querySelector('#tabla_isla'); break;
+        case 2: tbody = root.querySelector('#tabla_cctv');  break;
+        case 3: tbody = root.querySelector('#tabla_site');  break;
+        case 4: tbody = root.querySelector('#tabla_movilidad'); break;
+      }
+      if (!tbody) return; // seguridad
+  
+      // 2) Rellena según modo
+      if (modo === 'Agregar') {
+        tr.innerHTML = `
+          <td><input type="checkbox"></td>
+          <td>${activo.codigobarras_activo}</td>
+          <td>${activo.descripcion_activo}</td>
+          <td>${activo.ano_activo}</td>
+          <td>${activo.modelo_activo}</td>
+          <td>${activo.serie_activo}</td>
+          <td>${activo.observaciones_activo}</td>
+        `;
+      } else if (modo === 'Tecnico') {
+        tr.innerHTML = `
+          <td>${activo.codigobarras_activo}</td>
+          <td>${activo.descripcion_activo}</td>
+          <td>${activo.ano_activo}</td>
+          <td>${activo.modelo_activo}</td>
+          <td>${activo.serie_activo}</td>
+          <td>${activo.observaciones_activo}</td>
+        `;
+      } else if (modo === 'Tienda') {
+        const btn = `<button data-id="${activo.id_activofijo}" class="btn_eliminar">Eliminar</button>`;
+        tr.innerHTML = `
+          <td>${activo.codigobarras_activo}</td>
+          <td>${activo.descripcion_activo}</td>
+          <td>${activo.ano_activo}</td>
+          <td>${activo.modelo_activo}</td>
+          <td>${activo.serie_activo}</td>
+          <td>${activo.observaciones_activo}</td>
+          <td>${btn}</td>
+        `;
+      }
+  
+      // 3) Lo engancha al <tbody> correcto
+      tbody.appendChild(tr);
     });
-}
+  }
+  
