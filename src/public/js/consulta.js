@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', async () => {
               headers: [
                 "Id", "CR", "Region", "Plaza", "Nombre", "", ""
               ],
-              fields:  [ "id_tienda", "cr_tienda",  "codigoregion_tienda",  "idplaza_tienda",  "nombre_tienda",     "__btn__", "__btn2__" ],
+              fields:  [ "id_tienda", "cr_tienda",  "idregion_tienda",  "idplaza_tienda",  "nombre_tienda",     "__btn__", "__btn2__" ],
               titulo: "OXXO - Tiendas",
               tienda: "Tienda"
             },
@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', async () => {
               headers: [
                 "Id", "Region", "Nombre", "", ""
               ],
-              fields:  [ "id_plaza", "codigoregion_plaza",  "nombre_plaza", "__btn__", "__btn2__" ],
+              fields:  [ "id_plaza", "idregion_plaza",  "nombre_plaza", "__btn__", "__btn2__" ],
               titulo: "OXXO - Plazas",
               tienda: "Plazas"
             },
@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', async () => {
               headers: [
                 "Id", "Nombre(s)", "", ""
               ],
-              fields:  [ "codigo_region", "nombre_region",     "__btn__", "__btn2__" ],
+              fields:  [ "id_region", "nombre_region",     "__btn__", "__btn2__" ],
               titulo: "OXXO - Regiones",
               tienda: "Regiones"
             }

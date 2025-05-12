@@ -51,14 +51,26 @@ function agregar(tabla, data) {
     const values = Object.values(data);
     const valuePlaceholders = values.map((_, i) => `$${i + 1}`).join(', ');
 
-    const updateAssignments = columns.map(col => `${col} = EXCLUDED.${col}`).join(', ');
+    // Detectar clave de conflicto: primera propiedad que comience con "id_"
+    const conflictKey = columns.find(col => col.startsWith('id_'));
+
+    if (!conflictKey) {
+        return Promise.reject(new Error("No se pudo determinar una clave de conflicto en los datos"));
+    }
+
+    // Construir cláusula de actualización
+    const updateAssignments = columns
+        .filter(col => col !== conflictKey)  // evita re-asignar la clave primaria
+        .map(col => `${col} = EXCLUDED.${col}`)
+        .join(', ');
+
+    const query = `
+        INSERT INTO ${tabla} (${columns.join(', ')})
+        VALUES (${valuePlaceholders})
+        ON CONFLICT (${conflictKey}) DO UPDATE SET ${updateAssignments}
+    `;
 
     return new Promise((resolve, reject) => {
-        const query = `
-            INSERT INTO ${tabla} (${columns.join(', ')})
-            VALUES (${valuePlaceholders})
-            ON CONFLICT (id_region) DO UPDATE SET ${updateAssignments}
-        `;
         conexion.query(query, values, (error, result) => {
             return error ? reject(error) : resolve(result);
         });
