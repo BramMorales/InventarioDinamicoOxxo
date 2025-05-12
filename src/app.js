@@ -42,6 +42,7 @@ app.use((req, res, next) => {
     if (token) {
       try {
         res.locals.usuario = jwt.verify(token, config.jwt.secret);
+        console.log(res.locals.usuario)
       } catch(err) {
         console.error('Falló jwt.verify:', err.message);
       }
