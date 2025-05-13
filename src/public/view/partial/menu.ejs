@@ -6,10 +6,10 @@
         <div class="side-menu">
             <% if (usuario.rol!=0) { %>
             <a href="/Busqueda"><div class="side-menu-item">Buscador</div></a>
-            <div class="side-menu-item" id="btn_bodega"><a href="/Tienda?plaza=<%= usuario.plaza %>&region=<%= usuario.region %>&type=2"></a>Bodega</div>
+            <div class="side-menu-item" id="btn_bodega"><a href="/Tienda?plaza=<%= usuario.plaza %>&region=<%= usuario.region %>&type=2">Bodega</a></div>
             <% if (usuario.rol!=1) { %>
                 <div class="side-menu-item"><a href="/Tiendas">Tiendas</a></div>
-                <div class="side-menu-item">Tecnicos</div>
+                <div class="side-menu-item"><a href="/Tecnicos">Tecnicos</a></div>
                 <div class="side-menu-item">Proyectos</div>
             <% }%>
             <% }else {%>

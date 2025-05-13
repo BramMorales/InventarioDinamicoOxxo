@@ -1,8 +1,3 @@
-/**
- * result: el JSON que trae { body: [...] }
- * modo:   'Agregar' | 'Tienda' | 'Tecnico'
- * root:   elemento dentro del cual buscar los TBODYs (no globalmente)
- */
 function llenarTabla(result, modo, root = document) {
     result.body.forEach(activo => {
       const tr = document.createElement('tr');

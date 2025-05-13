@@ -69,6 +69,7 @@ app.get("/", authorization.soloNoUsuarios, (req,res)=>{res.render('login')});
 app.get("/Inicio", authorization.soloUsuarios, (req,res)=>{res.render('mainpage_tecnico')});
 app.get("/_Inicio", authorization.soloUsuarios, authorization.permisos, (req,res)=>{res.render('main')});
 app.get("/Busqueda", authorization.soloUsuarios, (req,res)=>{res.render('busqueda')});
+app.get("/Tecnicos", authorization.soloUsuarios, (req,res)=>{res.render('tecnicos')});
 app.get("/Tienda", authorization.soloUsuarios, (req,res)=>{res.render('tienda')});
 app.get("/Tiendas", authorization.soloUsuarios, (req,res)=>{res.render('tiendas')});
 app.get("/Agregar", authorization.soloUsuarios, (req,res)=>{res.render('agregar')});
