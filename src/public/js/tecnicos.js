@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         wrapper.className = 'store-block';
         wrapper.innerHTML = `
           <div class="store-name">
-            <h5>${tienda.nombre_tienda}</h5>
+            <h5>${tecnico.apellidop_usuario}, ${tecnico.nombre_usuario}</h5>
           </div>
         `;
   
