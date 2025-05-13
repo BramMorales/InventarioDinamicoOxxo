@@ -6,17 +6,17 @@
         <div class="side-menu">
             <% if (usuario.rol!=0) { %>
             <a href="/Busqueda"><div class="side-menu-item">Buscador</div></a>
-            <div class="side-menu-item" id="btn_bodega"><a href="/Tienda?plaza=<%= usuario.plaza %>&region=<%= usuario.region %>&type=2">Bodega</a></div>
+            <a href="/Tienda?plaza=<%= usuario.plaza %>&region=<%= usuario.region %>&type=2"><div class="side-menu-item" id="btn_bodega">Bodega</div></a>
             <% if (usuario.rol!=1) { %>
-                <div class="side-menu-item"><a href="/Tiendas">Tiendas</a></div>
-                <div class="side-menu-item"><a href="/Tecnicos">Tecnicos</a></div>
+                <a href="/Tiendas"><div class="side-menu-item">Tiendas</div></a>
+                <a href="/Tecnicos"><div class="side-menu-item">Tecnicos</div></a>
                 <div class="side-menu-item">Proyectos</div>
             <% }%>
             <% }else {%>
-                <div class="side-menu-item" id="btn_usuarios"><a href="/Consulta?type=1">Usuarios</a></div>
-                <div class="side-menu-item" id="btn_tiendas"><a href="/Consulta?type=2">Tiendas</a></div>
-                <div class="side-menu-item" id="btn_plazas"><a href="/Consulta?type=3">Plazas</a></div>
-                <div class="side-menu-item" id="btn_regiones"><a href="/Consulta?type=4">Regiones</a></div>
+                <a href="/Consulta?type=1"><div class="side-menu-item" id="btn_usuarios">Usuarios</div></a>
+                <a href="/Consulta?type=2"><div class="side-menu-item" id="btn_tiendas">Tiendas</div></a>
+                <a href="/Consulta?type=3"><div class="side-menu-item" id="btn_plazas">Plazas</div></a>
+                <a href="/Consulta?type=4"><div class="side-menu-item" id="btn_regiones">Regiones</div></a>
             <% }%>
             <div class="side-menu-item" id="logout"><a href="/logout">Cerrar sesión</a></div>
         </div>
