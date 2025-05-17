@@ -79,7 +79,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                     class="btn_eliminar"
                     data-id="${obj[ config.fields[0] ]}"  /* el id del registro */
                     style="
-                      background-color: #ff5c5c;
+                      background-color: #3498db;
                       border: none;
                       color: white;
                       padding: 5px 10px;
@@ -95,7 +95,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                     class="btn_modificar"
                     data-id="${obj[ config.fields[0] ]}"  /* el id del registro */
                     style="
-                      background-color:rgb(0, 255, 42);
+                      background-color:rgb(255, 51, 0);
                       border: none;
                       color: white;
                       padding: 5px 10px;
