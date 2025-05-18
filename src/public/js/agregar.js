@@ -260,16 +260,13 @@ async function fetchJSON(url, options = {}) {
             e.preventDefault();
             const data = {};
             config.campos.forEach((c, i) => {
-              // si primer campo oculto (id_)
               if (i === 0 && c.value !== undefined) {
                 data[c.name] = busqueda.id && busqueda.id !== "0"
                   ? parseInt(busqueda.id)
                   : undefined;
-              }
-              else if (c.type === "select") {
+              } else if (c.type === "select") {
                 data[c.name] = form.elements[c.name].value;
-              }
-              else {
+              } else {
                 data[c.name] = form.elements[c.name].value;
               }
             });
@@ -286,6 +283,28 @@ async function fetchJSON(url, options = {}) {
                 body: JSON.stringify(data),
               });
               if (!res.ok) throw new Error(res.statusText);
+
+              // — SI ES PLAZA Y ES NUEVA, CREA TAMBIÉN LA BODEGA
+              if (busqueda.tabla === '3' && method === "POST") {
+                const plazaCreada = await res.json();
+                const idNuevaPlaza = plazaCreada.body?.insertId || plazaCreada.body?.id_plaza;
+
+                const payloadBodega = {
+                  id_bodega: 0,
+                  idplaza_bodega: idNuevaPlaza,
+                  idregion_bodega: data.idregion_plaza,
+                  nombre_bodega:"Bodega" + data.nombre_plaza  
+                };
+
+                const resBodega = await fetch("/api/bodegas/agregar", {
+                  method: "POST",
+                  headers: { "Content-Type": "application/json" },
+                  body: JSON.stringify(payloadBodega)
+                });
+
+                if (!resBodega.ok) throw new Error("Error al crear la bodega.");
+              }
+
               alert(`${method === "PUT" ? "Actualización" : "Registro"} exitoso.`);
               window.location.href = "/Inicio";
             } catch (err) {
@@ -293,6 +312,7 @@ async function fetchJSON(url, options = {}) {
               alert("No se pudo guardar el formulario");
             }
           };
+
         break;
   
         default:
