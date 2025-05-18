@@ -226,6 +226,52 @@ async function fetchJSON(url, options = {}) {
           submitBtn.type = "submit";
           submitBtn.classList.add("add-button");
           form.appendChild(submitBtn);
+
+          // Si es modo edición, rellenar campos con datos existentes
+          if (busqueda.id != 0) {
+            let endpoint = "";
+
+            switch (busqueda.tabla) {
+              case '1':
+                endpoint = "/api/usuarios/" + busqueda.id;
+                break;
+              case '2':
+                endpoint = "/api/tiendas/" + busqueda.id;
+                break;
+              case '3':
+                endpoint = "/api/plazas/" + busqueda.id;
+                break;
+              case '4':
+                endpoint = "/api/regiones/" + busqueda.id;
+                break;
+            }
+
+            if (endpoint) {
+              try {
+                const res = await fetch(endpoint, {
+                  method: "GET",
+                  headers: { "Content-Type": "application/json" }
+                });
+                const result = await res.json();
+                const datos = result.body[0];
+
+                // rellenar inputs
+                config.campos.forEach(campo => {
+                  const el = form.elements[campo.name];
+                  if (!el) return;
+
+                  if (campo.type === "select") {
+                    el.value = datos[campo.name];
+                  } else {
+                    el.value = datos[campo.name] ?? "";
+                  }
+                });
+              } catch (e) {
+                console.error("Error cargando datos para edición:", e);
+                alert("No se pudieron cargar los datos para edición");
+              }
+            }
+          }
   
           if (config.campos.some(c => c.name === 'usuario_auth')) {
             // función de generación
@@ -306,9 +352,8 @@ async function fetchJSON(url, options = {}) {
       console.error("Error en la carga de resultados:", err.message);
     }
   });
-  
-  // — Delegación para el botón Añadir activos
- /* document.querySelector('.add-button')?.addEventListener('click', async () => {
+
+  document.querySelector('.add-button')?.addEventListener('click', async () => {
     const checkedBoxes = document.querySelectorAll('tbody input[type="checkbox"]:checked');
     for (const cb of checkedBoxes) {
       const row = cb.closest('tr');
@@ -333,5 +378,5 @@ async function fetchJSON(url, options = {}) {
         alert("No se pudo conectar con el servidor.");
       }
     }
-  });*/
+  });
   
