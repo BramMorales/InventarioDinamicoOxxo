@@ -86,7 +86,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                       cursor: pointer;
                       border-radius: 4px;
                     "
-                  ><img id="borrar" src="/borrar.png" width="25" height="25"></button>
+                  ><img id="borrar" src="/borrar.png" width="35" height="35"></button>
                 `;
               } else if(field === "__btn2__")
               {
@@ -102,7 +102,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                       cursor: pointer;
                       border-radius: 4px;
                     "
-                  ><a href="/Agregar?type=4&table=${busqueda.tipo}&id=${obj[ config.fields[0] ]}"><img id="borrar" src="/borrar.png" width="25" height="25"></a></button>
+                  ><a href="/Agregar?type=4&table=${busqueda.tipo}&id=${obj[ config.fields[0] ]}"><img id="borrar" src="/editar.png" width="35" height="35"></a></button>
                 `;
               }
               else{
