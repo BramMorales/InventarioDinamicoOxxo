@@ -34,7 +34,7 @@ function llenarTabla(result, modo, root = document) {
           <td>${activo.observaciones_activo}</td>
         `;
       } else if (modo === 'Tienda') {
-        const btn = `<button data-id="${activo.id_activofijo}" data-class="btn_eliminar"><img id="borrar" src="/borrar.png" width="35" height="35"></button>`;
+        const btn = `<button data-id="${activo.id_activofijo}" onclick=Eliminar()><img id="borrar" src="/borrar.png" width="35" height="35"></button>`;
         tr.innerHTML = `
           <td>${activo.codigobarras_activo}</td>
           <td>${activo.descripcion_activo}</td>
@@ -51,3 +51,33 @@ function llenarTabla(result, modo, root = document) {
     });
   }
   
+  async function Eliminar() {
+    const payload = {
+            id_activofijo: event.target.dataset.id,
+            ubicacion_activo: user,
+            tipoubicacion_activofijo: 1,
+        }
+
+        try {
+            // Realiza la petición para registrar al nuevo usuario
+            const res = await fetch("/api/activosfijos/agregar", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload),
+              });
+        
+            const result = await res.json();
+
+            if(busqueda.tipo==2)
+            {
+                window.location.href = `/Tienda?plaza=${busqueda.plaza}&region=${busqueda.region}&type=2`;
+            }
+            else{
+                window.location.href = `/Tienda?id=${busqueda.id}&type=${busqueda.tipo}`;
+            }
+    
+          } catch (error) {
+            console.error("Error en el registro:", error);
+            alert("No se pudo conectar con el servidor.");
+          }
+  }
