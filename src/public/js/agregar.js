@@ -276,6 +276,9 @@ async function fetchJSON(url, options = {}) {
               ? `${config.url.replace(/\/agregar\/?$/, "")}/${busqueda.id}`
               : config.url;
 
+              console.log("Payload plaza:", data);
+
+
             try {
               const res = await fetch(url, {
                 method,
@@ -288,6 +291,8 @@ async function fetchJSON(url, options = {}) {
               if (busqueda.tabla === '3' && method === "POST") {
                 const plazaCreada = await res.json();
                 const idNuevaPlaza = plazaCreada.body?.insertId || plazaCreada.body?.id_plaza;
+
+                console.log("Payload bodega:", payloadBodega);
 
                 const payloadBodega = {
                   id_bodega: 0,
