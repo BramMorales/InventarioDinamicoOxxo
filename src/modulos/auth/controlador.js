@@ -62,6 +62,7 @@ module.exports = function (dbInyectada){
         {
             authData.contrasena_auth = await bcrypt.hash(data.contrasena_auth.toString(),5);
         }
+        console.log(authData)
 
         return db.agregar(TABLA, authData);
     }
