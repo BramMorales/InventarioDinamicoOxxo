@@ -70,6 +70,7 @@ async function Eliminar(event) {
               });
         
             const result = await res.json();
+            console.log(result)
           } catch (error) {
             console.error("Error en el registro:", error);
             alert("No se pudo conectar con el servidor.");
