@@ -41,9 +41,7 @@ module.exports = function (dbInyectada){
 
         var insertId = 0;
         body.id_usuario == 0 ? insertId = respuesta.insertId : insertId = body.id_usuario;
-
         var respuesta2 = '';
-
         console.log(insertId);
 
         if(body.usuario_auth || body.contrasena_auth)
