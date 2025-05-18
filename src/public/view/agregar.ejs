@@ -25,6 +25,13 @@
     <%} else {%>
       <%- include('./partial/tabla') %>
       <div class="add-change-buttons">
+        <h3>Motivo</h3>
+        <select>
+          <option value="value1">Integracion</option>
+          <option value="value2">Cambio dinamico</option>
+        </select>
+        <h3>Comentarios</h3>
+        <input type="text" id="comentarios_af" name="comentarios_af" />
         <button class="add-button">Añadir</button>
       </div>
     <%}%>
