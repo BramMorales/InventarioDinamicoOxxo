@@ -34,7 +34,7 @@ function llenarTabla(result, modo, root = document) {
           <td>${activo.observaciones_activo}</td>
         `;
       } else if (modo === 'Tienda') {
-        const btn = `<button data-id="${activo.id_activofijo}" onclick=Eliminar()><img id="borrar" src="/borrar.png" width="35" height="35"></button>`;
+        const btn = `<button data-id="${activo.id_activofijo}" onclick=Eliminar(event)><img id="borrar" src="/borrar.png" width="35" height="35"></button>`;
         tr.innerHTML = `
           <td>${activo.codigobarras_activo}</td>
           <td>${activo.descripcion_activo}</td>
@@ -51,12 +51,14 @@ function llenarTabla(result, modo, root = document) {
     });
   }
   
-  async function Eliminar() {
-    const payload = {
-            id_activofijo: event.target.dataset.id,
-            ubicacion_activo: user,
-            tipoubicacion_activofijo: 1,
-        }
+async function Eliminar(event) {
+  const id = event.currentTarget.dataset.id;
+
+  const payload = {
+    id_activofijo: id,
+    ubicacion_activo: user,
+    tipoubicacion_activofijo: 1,
+  };
 
         try {
             // Realiza la petición para registrar al nuevo usuario
