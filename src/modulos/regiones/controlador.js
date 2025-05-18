@@ -13,9 +13,9 @@ module.exports = function (dbInyectada){
         return db.todos(TABLA);
     }
 
-    function uno(codigo_region)
+    function uno(id_region)
     {
-        return db.query(TABLA, {codigo_region: codigo_region});
+        return db.query(TABLA, {id_region: id_region});
     }
 
     function eliminar(body)

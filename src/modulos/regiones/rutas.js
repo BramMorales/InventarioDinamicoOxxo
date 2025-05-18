@@ -6,7 +6,7 @@ const controlador = require('./index');
 
 //Rutas
 router.get('/', todos);
-router.get('/:codigo_region', uno);
+router.get('/:id_region', uno);
 
 router.post('/agregar', agregar);
 

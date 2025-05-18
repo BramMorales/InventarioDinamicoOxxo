@@ -18,9 +18,9 @@ document.addEventListener('DOMContentLoaded', async () => {
             '2': {
               url: "/api/tiendas/",
               headers: [
-                "Id", "CR", "Region", "Plaza", "Nombre", "", ""
+                "Id", "CR", "Plaza", "Nombre", "", ""
               ],
-              fields:  [ "id_tienda", "cr_tienda",  "idregion_tienda",  "idplaza_tienda",  "nombre_tienda",     "__btn__", "__btn2__" ],
+              fields:  [ "id_tienda", "cr_tienda", "idplaza_tienda",  "nombre_tienda",     "__btn__", "__btn2__" ],
               titulo: "OXXO - Tiendas",
               tienda: "Tienda"
             },
