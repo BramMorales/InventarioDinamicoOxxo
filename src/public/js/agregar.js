@@ -189,112 +189,111 @@ async function fetchJSON(url, options = {}) {
             throw new Error("Tipo de formulario inválido");
           }
   
+          let valoresActuales = {};
+          if (busqueda.id && busqueda.id !== "0") {
+            // determino endpoint según tabla
+            const endpointMap = {
+              '1': `/api/usuarios/${busqueda.id}`,
+              '2': `/api/tiendas/${busqueda.id}`,
+              '3': `/api/plazas/${busqueda.id}`,
+              '4': `/api/regiones/${busqueda.id}`,
+            };
+            try {
+              const res = await fetch(endpointMap[busqueda.tabla]);
+              const json = await res.json();
+              valoresActuales = json.body[0] || {};
+            } catch (err) {
+              console.error("Error cargando datos para edición:", err);
+            }
+          }
+
+          // 2) Renderizo el formulario
           document.getElementById("lbl_titulo").textContent = config.titulo;
           const form = document.getElementById("frm_agregar");
           form.innerHTML = "";
-  
-          // — crear campos, incluyendo el select dinámico
+
           for (const campo of config.campos) {
-            if (campo.type === "select") {
-                const selDiv = await crearSelect(campo);
-                form.appendChild(selDiv);
+            // oculto el primer campo si es id
+            if (campo.value !== undefined && !campo.label) {
+              // lo guardo pero no creo un input visible
+              continue;
             }
-            else if (campo.label) {
+
+            if (campo.type === "select") {
+              // creo el <select> dinámico
+              const selDiv = await crearSelect(campo);
+              // marco la opción actual si vengo de edición
+              const sel = selDiv.querySelector("select");
+              if (valoresActuales[campo.name] != null) {
+                sel.value = valoresActuales[campo.name];
+              }
+              form.appendChild(selDiv);
+            }
+            else {
+              // creo un <input> normal
               const div = document.createElement("div");
-              div.classList.add("form-group");
-  
-              const label = document.createElement("label");
-              label.textContent = campo.label;
-              label.setAttribute("for", campo.name);
-  
-              const input = document.createElement("input");
-              input.name = campo.name;
-              input.id = campo.name;
-              input.type = campo.type || "text";
-              input.required = campo.required || false;
-              input.classList.add("form-control");
-  
-              div.appendChild(label);
-              div.appendChild(input);
+              div.className = "form-group";
+              div.innerHTML = `
+                <label for="${campo.name}">${campo.label}</label>
+                <input
+                  id="${campo.name}"
+                  name="${campo.name}"
+                  type="${campo.type || "text"}"
+                  ${campo.required ? "required" : ""}
+                  class="form-control"
+                  value="${valoresActuales[campo.name] || ""}"
+                />
+              `;
               form.appendChild(div);
             }
           }
-  
-          // — botón registrar
-          const submitBtn = document.createElement("button");
-          submitBtn.textContent = "Registrar";
-          submitBtn.type = "submit";
-          submitBtn.classList.add("add-button");
-          form.appendChild(submitBtn);
-  
-          if (config.campos.some(c => c.name === 'usuario_auth')) {
-            // función de generación
-            form.elements['usuario_auth'].enable = false;
 
-            function generarUsuarioAuth() {
-              const ap = form.elements['apellidop_usuario']?.value.trim() || "";
-              const am = form.elements['apellidom_usuario']?.value.trim() || "";
-              const no = form.elements['nombre_usuario']?.value.trim()    || "";
-          
-              if (ap.length >= 2 && am.length >= 1 && no.length >= 1) {
-                const part = ap.slice(0,2).toLowerCase()
-                           + am[0].toLowerCase()
-                           + no[0].toLowerCase();
-                const nums = String(Math.floor(Math.random()*1000)).padStart(3,'0');
-                form.elements['usuario_auth'].value = part + nums;
-              }
-            }
-          
-            // registrar listeners solo si existen esos inputs
-            ['apellidop_usuario','apellidom_usuario','nombre_usuario']
-              .forEach(id => {
-                const el = form.elements[id];
-                if (el) el.addEventListener('input', generarUsuarioAuth);
-              });
-          
-            // y una primera corrida
-            generarUsuarioAuth();
-          }
+          // 3) Botón
+          const btn = document.createElement("button");
+          btn.type = "submit";
+          btn.textContent = busqueda.id && busqueda.id !== "0" ? "Actualizar" : "Registrar";
+          btn.className = "add-button";
+          form.appendChild(btn);
 
-          // — listener de submit
-          form.addEventListener("submit", async (e) => {
+          // 4) Listener de envío: si id≠0 hace PUT, si no POST
+          form.onsubmit = async e => {
             e.preventDefault();
-          
             const data = {};
             config.campos.forEach((c, i) => {
-              if (c.type === "select") {
-                // Recoge el value numérico de cualquier <select>
+              // si primer campo oculto (id_)
+              if (i === 0 && c.value !== undefined) {
+                data[c.name] = busqueda.id && busqueda.id !== "0"
+                  ? parseInt(busqueda.id)
+                  : undefined;
+              }
+              else if (c.type === "select") {
                 data[c.name] = form.elements[c.name].value;
-              } else if (i === 0 && c.value !== undefined) {
-                // Primer campo oculto (id_…)
-                if(busqueda.id != 0){
-                  data[c.name] = parseInt(busqueda.id);
-                }
-                else{
-                  data[c.name] = 0;
-                }
-              } else {
-                // Inputs normales
-                data[c.name] = form.elements[c.name].value || "";
+              }
+              else {
+                data[c.name] = form.elements[c.name].value;
               }
             });
-          
-            console.log(data)
+
+            const method = (busqueda.id && busqueda.id !== "0") ? "PUT" : "POST";
+            const url    = (method === "PUT")
+              ? `${config.url.replace(/\/agregar\/?$/, "")}/${busqueda.id}`
+              : config.url;
+
             try {
-              const res = await fetch(config.url, {
-                method: "POST",
+              const res = await fetch(url, {
+                method,
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(data)
+                body: JSON.stringify(data),
               });
-              if (!res.ok) throw new Error("Error en el registro");
-              alert("Registro exitoso");
-              location.href = "/Inicio";
+              if (!res.ok) throw new Error(res.statusText);
+              alert(`${method === "PUT" ? "Actualización" : "Registro"} exitoso.`);
+              window.location.href = "/Inicio";
             } catch (err) {
-              console.error("Error al registrar:", err);
-              alert("No se pudo registrar el formulario");
+              console.error("Error al guardar:", err);
+              alert("No se pudo guardar el formulario");
             }
-          });
-          break;
+          };
+        break;
   
         default:
           window.location.href = `/Inicio`;
@@ -307,8 +306,7 @@ async function fetchJSON(url, options = {}) {
     }
   });
   
-  // — Delegación para el botón Añadir activos
- /* document.querySelector('.add-button')?.addEventListener('click', async () => {
+document.querySelector('.add-button')?.addEventListener('click', async () => {
     const checkedBoxes = document.querySelectorAll('tbody input[type="checkbox"]:checked');
     for (const cb of checkedBoxes) {
       const row = cb.closest('tr');
@@ -333,5 +331,5 @@ async function fetchJSON(url, options = {}) {
         alert("No se pudo conectar con el servidor.");
       }
     }
-  });*/
+  });
   
