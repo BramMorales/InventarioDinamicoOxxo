@@ -261,9 +261,10 @@ async function fetchJSON(url, options = {}) {
             const data = {};
             config.campos.forEach((c, i) => {
               if (i === 0 && c.value !== undefined) {
-                data[c.name] = busqueda.id && busqueda.id !== "0"
-                  ? parseInt(busqueda.id)
-                  : undefined;
+                if (busqueda.id && busqueda.id !== "0") {
+                  data[c.name] = parseInt(busqueda.id);
+                }
+                // Si es nuevo, no agregues el campo
               } else if (c.type === "select") {
                 data[c.name] = form.elements[c.name].value;
               } else {
