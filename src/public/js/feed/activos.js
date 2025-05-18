@@ -34,7 +34,7 @@ function llenarTabla(result, modo, root = document) {
           <td>${activo.observaciones_activo}</td>
         `;
       } else if (modo === 'Tienda') {
-        const btn = `<button data-id="${activo.id_activofijo}"><img id="borrar" src="/borrar.png" width="35" height="35"></button>`;
+        const btn = `<button data-id="${activo.id_activofijo}" class="btn_eliminar"><img id="borrar" src="/borrar.png" width="35" height="35"></button>`;
         tr.innerHTML = `
           <td>${activo.codigobarras_activo}</td>
           <td>${activo.descripcion_activo}</td>
