@@ -8,6 +8,9 @@ document.addEventListener('DOMContentLoaded', async () => {
       const { body: tecnicos } = await tecnicoRes.json();
   
       for (const tecnico of tecnicos) {
+        const authRes = await fetch('/api/auth');
+        const { body: tecnicos } = await tecnicoRes.json();
+
         // 2) Crea el wrapper de esta tienda
         const wrapper = document.createElement('div');
         wrapper.className = 'store-block';
