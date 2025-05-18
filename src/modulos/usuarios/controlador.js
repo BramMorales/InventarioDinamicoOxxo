@@ -53,6 +53,8 @@ module.exports = function (dbInyectada){
                 contrasena_auth: body.contrasena_auth,
                 rol_auth: body.rol_auth,
             })
+
+            console.log(respuesta2)
         }
 
         return respuesta2;
