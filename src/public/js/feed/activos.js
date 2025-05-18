@@ -52,34 +52,63 @@ function llenarTabla(result, modo, root = document) {
   }
   
 async function Eliminar(event) {
-  const id = event.currentTarget.dataset.id;
+  let idActivoSeleccionado = null;
 
-  const payload = {
-    id_activofijo: id,
-    ubicacion_activo: user,
-    tipoubicacion_activofijo: 1,
-  };
+  document.addEventListener('click', (event) => {
+    const btn = event.target.closest('button[data-id]');
+    if (btn) {
+      idActivoSeleccionado = btn.dataset.id;
 
-        try {
-            // Realiza la petición para registrar al nuevo usuario
-            const res = await fetch("/api/activosfijos/agregar", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(payload),
-              });
-        
-            const result = await res.json();
+      // Actualiza texto del modal
+      document.getElementById('modal_info').textContent = `¿Estás seguro que deseas procesar el activo ID: ${idActivoSeleccionado}?`;
 
-            if(busqueda.tipo==2)
-            {
-                window.location.href = `/Tienda?plaza=${busqueda.plaza}&region=${busqueda.region}&type=2`;
-            }
-            else{
-                window.location.href = `/Tienda?id=${busqueda.id}&type=${busqueda.tipo}`;
-            }
-    
-          } catch (error) {
-            console.error("Error en el registro:", error);
-            alert("No se pudo conectar con el servidor.");
-          }
-  }
+      // Muestra el modal
+      document.getElementById('modal_eliminar').classList.remove('hidden');
+    }
+  });
+
+  // Botón cancelar
+  document.getElementById('cancelar_btn').addEventListener('click', () => {
+    document.getElementById('modal_eliminar').classList.add('hidden');
+    idActivoSeleccionado = null;
+  });
+
+  // Botón aceptar
+  document.getElementById('aceptar_btn').addEventListener('click', async () => {
+    const motivo = document.getElementById('motivo_input').value;
+    const comentario = document.getElementById('comentario_input').value;
+
+    const payload = {
+      id_activofijo: idActivoSeleccionado,
+      ubicacion_activo: user,
+      tipoubicacion_activofijo: 1,
+      motivo,
+      comentario
+    };
+
+    try {
+      const res = await fetch("/api/activosfijos/agregar", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      const result = await res.json();
+
+      // Cierra el modal
+      document.getElementById('modal_eliminar').classList.add('hidden');
+
+      // Redirige según lógica
+      if (busqueda.tipo == 2) {
+        window.location.href = `/Tienda?plaza=${busqueda.plaza}&region=${busqueda.region}&type=2`;
+      } else {
+        window.location.href = `/Tienda?id=${busqueda.id}&type=${busqueda.tipo}`;
+      }
+
+    } catch (error) {
+      console.error("Error en el registro:", error);
+      alert("No se pudo conectar con el servidor.");
+    }
+  });
+
+}
