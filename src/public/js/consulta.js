@@ -86,14 +86,14 @@ document.addEventListener('DOMContentLoaded', async () => {
                       cursor: pointer;
                       border-radius: 4px;
                     "
-                  >Eliminar</button>
+                  ><img id="borrar" src="/borrar.png" width="10" height="10"></button>
                 `;
               } else if(field === "__btn2__")
               {
                 td.innerHTML = `
                   <button
                     class="btn_modificar"
-                    data-id="${obj[ config.fields[0] ]}"  /* el id del registro */
+                    data-id="${obj[ config.fields[0] ]}"
                     style="
                       background-color:rgb(255, 51, 0);
                       border: none;
