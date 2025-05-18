@@ -77,16 +77,16 @@ document.addEventListener('DOMContentLoaded', async () => {
                 td.innerHTML = `
                   <button
                     class="btn_eliminar"
-                    data-id="${obj[ config.fields[0] ]}"  /* el id del registro */
+                    data-id="${obj[ config.fields[0] ]}"
                     style="
-                      background-color: #3498db;
+                      background-color: #ffffff;
                       border: none;
                       color: white;
                       padding: 5px 10px;
                       cursor: pointer;
                       border-radius: 4px;
                     "
-                  ><img id="borrar" src="/borrar.png" width="10" height="10"></button>
+                  ><img id="borrar" src="/borrar.png" width="25" height="25"></button>
                 `;
               } else if(field === "__btn2__")
               {
@@ -95,14 +95,14 @@ document.addEventListener('DOMContentLoaded', async () => {
                     class="btn_modificar"
                     data-id="${obj[ config.fields[0] ]}"
                     style="
-                      background-color:rgb(255, 51, 0);
+                      background-color: #ffffff;
                       border: none;
                       color: white;
                       padding: 5px 10px;
                       cursor: pointer;
                       border-radius: 4px;
                     "
-                  ><a href="/Agregar?type=4&table=${busqueda.tipo}&id=${obj[ config.fields[0] ]}">Modificar</a></button>
+                  ><a href="/Agregar?type=4&table=${busqueda.tipo}&id=${obj[ config.fields[0] ]}"><img id="borrar" src="/borrar.png" width="25" height="25"></a></button>
                 `;
               }
               else{
