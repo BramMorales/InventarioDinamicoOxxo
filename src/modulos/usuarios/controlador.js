@@ -38,6 +38,7 @@ module.exports = function (dbInyectada){
         }
 
         const respuesta = await db.agregar(TABLA, usuario);
+        console.log(respuesta)
 
         var insertId = 0;
         body.id_usuario == 0 ? insertId = respuesta.insertId : insertId = body.id_usuario;
