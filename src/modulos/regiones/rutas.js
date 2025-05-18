@@ -26,7 +26,7 @@ async function todos (req, res, next){
 
 async function uno(req, res, next){
     try{
-        const items = await controlador.uno(req.params.codigo_region);
+        const items = await controlador.uno(req.params.id_region);
         respuesta.success(req, res, items, 200);
     }
     catch(err)
