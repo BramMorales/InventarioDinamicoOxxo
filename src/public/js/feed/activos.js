@@ -82,8 +82,6 @@ async function Eliminar(event) {
       id_activofijo: idActivoSeleccionado,
       ubicacion_activo: user,
       tipoubicacion_activofijo: 1,
-      motivo,
-      comentario
     };
 
     try {
