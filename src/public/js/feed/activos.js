@@ -60,6 +60,7 @@ async function Eliminar(event) {
     tipoubicacion_activofijo: 1,
   };
 
+  console.log(payload)
         try {
             // Realiza la petición para registrar al nuevo usuario
             const res = await fetch("/api/activosfijos/agregar", {
@@ -69,15 +70,6 @@ async function Eliminar(event) {
               });
         
             const result = await res.json();
-
-            if(busqueda.tipo==2)
-            {
-                window.location.href = `/Tienda?plaza=${busqueda.plaza}&region=${busqueda.region}&type=2`;
-            }
-            else{
-                window.location.href = `/Tienda?id=${busqueda.id}&type=${busqueda.tipo}`;
-            }
-    
           } catch (error) {
             console.error("Error en el registro:", error);
             alert("No se pudo conectar con el servidor.");
