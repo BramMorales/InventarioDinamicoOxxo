@@ -1,4 +1,5 @@
 const TABLA = 'plaza';
+const bodega = require('../bodegas');
 
 module.exports = function (dbInyectada){
 
@@ -34,25 +35,21 @@ module.exports = function (dbInyectada){
         const respuesta = await db.agregar(TABLA, plaza);
         
         var insertId = 0;
-        body.id_usuario == 0 ? insertId = respuesta.insertId : insertId = body.id_usuario;
+        body.id_usuario == 0 ? insertId = respuesta.id_plaza : insertId = body.id_usuario;        
+        console.log(insertId);
         
-                var respuesta2 = '';
-        
-                console.log(insertId);
-        
-                if(body.usuario_auth || body.contrasena_auth)
-                {
-                    respuesta2 = await auth.agregar({
-                        idusuario_auth: insertId,
-                        usuario_auth: body.usuario_auth,
-                        contrasena_auth: body.contrasena_auth,
-                        rol_auth: body.rol_auth,
-                    }) 
-                }
-        
-                return respuesta2;
+        var respuesta2 = ''
 
-        return db.agregar(TABLA, body);
+        if(body.nombre_bodega || body.cr_bodega)
+        {
+            respuesta2 = await bodega.agregar({
+                id_bodega: insertId,
+                cr_bodega: body.cr_bodega,
+                nombre_bodega: body.nombre_bodega
+            }) 
+        }
+        
+        return respuesta2;
     }
     
     return {
