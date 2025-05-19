@@ -37,10 +37,10 @@ module.exports = function (dbInyectada){
             nombre_bodega: data.nombre_bodega
         }
         
-                if(data.id_bodega)
-                {  
-                    authData.id_bodega = data.id_bodega
+                if (data.id_bodega && parseInt(data.id_bodega) > 0) {
+                    authData.id_bodega = data.id_bodega;
                 }
+
         
                 if(data.cr_bodega)
                 {  
