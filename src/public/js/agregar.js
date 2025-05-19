@@ -194,42 +194,47 @@ async function fetchJSON(url, options = {}) {
           form.innerHTML = "";
   
           // — crear campos, incluyendo el select dinámico
-          for (const campo of config.campos) {
-  // Si el campo es un <select>, lo crea y lo agrega al formulario
+    for (const campo of config.campos) {
+  // Si el campo es un <select>
   if (campo.type === "select") {
     const selDiv = await crearSelect(campo);
+    selDiv.classList.add("mb-3"); // Espacio inferior para separación visual
     form.appendChild(selDiv);
   }
 
-  // Si el campo tiene una etiqueta definida, se crea un input normal
+  // Si el campo es un input tradicional
   else if (campo.label) {
-    // Crear el contenedor del grupo de formulario
     const div = document.createElement("div");
-    div.classList.add("form-group");
+    div.classList.add("mb-3"); // Bootstrap: espacio inferior
 
-    // Crear la etiqueta del campo
     const label = document.createElement("label");
     label.textContent = campo.label;
     label.setAttribute("for", campo.name);
+    label.classList.add("form-label"); // Estilo para etiquetas
 
-    // Crear el campo input
     const input = document.createElement("input");
     input.name = campo.name;
     input.id = campo.name;
     input.type = campo.type || "text";
     input.required = campo.required || false;
-    input.classList.add("form-control");
+    input.placeholder = campo.placeholder || ""; // Mejora la experiencia del usuario
+    input.classList.add("form-control", "shadow-sm"); // Estilo suave y sombreado
 
-    // Agregar la etiqueta e input al contenedor
+    // Opcional: ayuda textual debajo del input
+    if (campo.helpText) {
+      const small = document.createElement("div");
+      small.classList.add("form-text");
+      small.textContent = campo.helpText;
+      div.appendChild(small);
+    }
+
     div.appendChild(label);
     div.appendChild(input);
-
-    // Agregar el grupo al formulario principal
     form.appendChild(div);
+    
   }
+}
 
-
-          }
   
           // — botón registrar
           const submitBtn = document.createElement("button");
