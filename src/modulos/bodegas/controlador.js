@@ -29,9 +29,32 @@ module.exports = function (dbInyectada){
         return db.eliminar(TABLA, body);
     }
 
-    function agregar(body)
+    async function agregar(body)
     {
-        return db.agregar(TABLA, body);
+        const authData = {
+            id_bodega: data.id_bodega,
+            cr_bodega: data.cr_bodega,
+            nombre_bodega: data.nombre_bodega
+        }
+        
+                if(data.id_bodega)
+                {  
+                    authData.id_bodega = data.id_bodega
+                }
+        
+                if(data.cr_bodega)
+                {  
+                    authData.cr_bodega = data.cr_bodega
+                }
+
+                if(data.nombre_bodega)
+                {  
+                    authData.nombre_bodega = data.nombre_bodega
+                }
+        
+                console.log(authData)
+        
+                return db.agregar(TABLA, authData);
     }
     
     return {
