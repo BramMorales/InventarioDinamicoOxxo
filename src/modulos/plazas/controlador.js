@@ -40,17 +40,14 @@ module.exports = function (dbInyectada){
     body.id_plaza == 0 ? insertId = respuesta.id_plaza : insertId = body.id_plaza;
     console.log('ID de plaza insertado o usado:', insertId);
 
-    let respuesta2 = '';
-
-    if (body.nombre_bodega || body.cr_bodega) {
-        respuesta2 = await bodega.agregar({
+    let respuesta2 = ''        
+    respuesta2 = await bodega.agregar({
             id_bodega: insertId,
             cr_bodega: body.cr_bodega,
             nombre_bodega: body.nombre_bodega,
         });
 
         console.log(respuesta2);
-    }
 
     return respuesta2 || respuesta;
 }
