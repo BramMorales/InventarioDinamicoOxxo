@@ -194,31 +194,42 @@ async function fetchJSON(url, options = {}) {
           form.innerHTML = "";
   
           // — crear campos, incluyendo el select dinámico
-          for (const campo of config.campos) {
-            if (campo.type === "select") {
-                const selDiv = await crearSelect(campo);
-                form.appendChild(selDiv);
-            }
-            else if (campo.label) {
-              const div = document.createElement("div");
-              div.classList.add("form-group");
-  
-              const label = document.createElement("label");
-              label.textContent = campo.label;
-              label.setAttribute("for", campo.name);
-  
-              const input = document.createElement("input");
-              input.name = campo.name;
-              input.id = campo.name;
-              input.type = campo.type || "text";
-              input.required = campo.required || false;
-              input.classList.add("form-control");
-  
-              div.appendChild(label);
-              div.appendChild(input);
-              form.appendChild(div);
-            }
-          }
+
+for (const campo of config.campos) {
+  // Si el campo es un <select>, lo crea y lo agrega al formulario
+  if (campo.type === "select") {
+    const selDiv = await crearSelect(campo);
+    form.appendChild(selDiv);
+  }
+
+  // Si el campo tiene una etiqueta definida, se crea un input normal
+  else if (campo.label) {
+    // Crear el contenedor del grupo de formulario
+    const div = document.createElement("div");
+    div.classList.add("form-group");
+
+    // Crear la etiqueta del campo
+    const label = document.createElement("label");
+    label.textContent = campo.label;
+    label.setAttribute("for", campo.name);
+
+    // Crear el campo input
+    const input = document.createElement("input");
+    input.name = campo.name;
+    input.id = campo.name;
+    input.type = campo.type || "text";
+    input.required = campo.required || false;
+    input.classList.add("form-control");
+
+    // Agregar la etiqueta e input al contenedor
+    div.appendChild(label);
+    div.appendChild(input);
+
+    // Agregar el grupo al formulario principal
+    form.appendChild(div);
+  }
+}
+
   
           // — botón registrar
           const submitBtn = document.createElement("button");
