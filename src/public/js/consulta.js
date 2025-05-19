@@ -95,7 +95,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                     class="btn_modificar"
                     data-id="${obj[ config.fields[0] ]}"
                     style="
-                      background-color: #ffffff;
+                      background-color:rgb(32, 99, 171);
                       border: none;
                       color: white;
                       padding: 5px 10px;
