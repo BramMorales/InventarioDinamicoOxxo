@@ -24,37 +24,41 @@ module.exports = function (dbInyectada){
         return db.eliminar(TABLA, id_usuario);
     }
 
-    async function agregar(body) {
-    console.log(body);
+    async function agregar(body)
+    {
+        console.log(body);
 
-    const plaza = {
-        id_plaza: body.id_plaza,
-        idregion_plaza: body.idregion_plaza,
-        nombre_plaza: body.nombre_plaza
-    };
 
-    const respuesta = await db.agregar(TABLA, plaza);
-    console.log(respuesta);
+        const usuario = {
+            id_usuario: body.id_usuario,
+            nombre_usuario: body.nombre_usuario,
+            apellidop_usuario: body.apellidop_usuario,
+            apellidom_usuario: body.apellidom_usuario,
+            idplaza_usuario: body.idplaza_usuario
+        }
 
-    let insertId = 0;
-    body.id_plaza == 0 ? insertId = respuesta.id_plaza : insertId = body.id_plaza;
-    console.log('ID de plaza insertado o usado:', insertId);
+        const respuesta = await db.agregar(TABLA, usuario);
+        console.log(respuesta)
 
-    let respuesta2 = '';
+        var insertId = 0;
+        body.id_usuario == 0 ? insertId = respuesta.id_usuario : insertId = body.id_usuario;
+        var respuesta2 = '';
+        console.log(insertId);
 
-    if (body.nombre_bodega || body.cr_bodega) {
-        respuesta2 = await bodega.agregar({
-            cr_bodega: body.cr_bodega,
-            nombre_bodega: body.nombre_bodega,
-            idplaza_bodega: insertId
-        });
+        if(body.usuario_auth || body.contrasena_auth)
+        {
+            respuesta2 = await auth.agregar({
+                idusuario_auth: insertId,
+                usuario_auth: body.usuario_auth,
+                contrasena_auth: body.contrasena_auth,
+                rol_auth: body.rol_auth,
+            })
 
-        console.log(respuesta2);
+            console.log(respuesta2)
+        }
+
+        return respuesta2;
     }
-
-    return respuesta2 || respuesta;
-}
-
     
     return {
         todos,
