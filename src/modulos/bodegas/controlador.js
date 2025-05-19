@@ -29,7 +29,7 @@ module.exports = function (dbInyectada){
         return db.eliminar(TABLA, body);
     }
 
-    async function agregar(body)
+    async function agregar(data)
     {
         const authData = {
             id_bodega: data.id_bodega,
