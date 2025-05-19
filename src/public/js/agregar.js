@@ -194,8 +194,7 @@ async function fetchJSON(url, options = {}) {
           form.innerHTML = "";
   
           // — crear campos, incluyendo el select dinámico
-
-for (const campo of config.campos) {
+          for (const campo of config.campos) {
   // Si el campo es un <select>, lo crea y lo agrega al formulario
   if (campo.type === "select") {
     const selDiv = await crearSelect(campo);
@@ -230,6 +229,7 @@ for (const campo of config.campos) {
   }
 }
 
+          }
   
           // — botón registrar
           const submitBtn = document.createElement("button");
