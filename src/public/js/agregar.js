@@ -227,7 +227,7 @@ async function fetchJSON(url, options = {}) {
     // Agregar el grupo al formulario principal
     form.appendChild(div);
   }
-}
+
 
           }
   
