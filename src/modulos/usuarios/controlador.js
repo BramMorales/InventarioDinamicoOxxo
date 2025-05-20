@@ -26,9 +26,6 @@ module.exports = function (dbInyectada){
 
     async function agregar(body)
     {
-        console.log(body);
-
-
         const usuario = {
             id_usuario: body.id_usuario,
             nombre_usuario: body.nombre_usuario,
@@ -38,12 +35,10 @@ module.exports = function (dbInyectada){
         }
 
         const respuesta = await db.agregar(TABLA, usuario);
-        console.log(respuesta)
 
         var insertId = 0;
         body.id_usuario == 0 ? insertId = respuesta.id_usuario : insertId = body.id_usuario;
         var respuesta2 = '';
-        console.log(insertId);
 
         if(body.usuario_auth || body.contrasena_auth)
         {
@@ -53,8 +48,6 @@ module.exports = function (dbInyectada){
                 contrasena_auth: body.contrasena_auth,
                 rol_auth: body.rol_auth,
             })
-
-            console.log(respuesta2)
         }
 
         return respuesta2;
