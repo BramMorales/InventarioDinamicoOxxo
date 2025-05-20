@@ -41,6 +41,8 @@ module.exports = function (dbInyectada){
             nombre_bodega: data.nombre_bodega,
         };
     
+        console.log(authData)
+
         if(consulta.length === 0){
             authData.id_bodega = 0
         }

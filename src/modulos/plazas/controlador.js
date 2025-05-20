@@ -34,11 +34,9 @@ module.exports = function (dbInyectada){
         };
 
         const respuesta = await db.agregar(TABLA, plaza);
-        console.log(respuesta);
 
         let insertId = 0;
         body.id_plaza == 0 ? insertId = respuesta.id_plaza : insertId = body.id_plaza;
-        console.log('ID de plaza insertado o usado:', insertId);
 
         let respuesta2 = '';
 
@@ -49,8 +47,6 @@ module.exports = function (dbInyectada){
                 cr_bodega: body.cr_bodega,
                 nombre_bodega: body.nombre_bodega,
             });
-
-            console.log(respuesta2);
         }
 
         return respuesta2 || respuesta;
