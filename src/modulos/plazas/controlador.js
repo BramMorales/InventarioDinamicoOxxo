@@ -44,7 +44,8 @@ module.exports = function (dbInyectada){
 
         if (body.nombre_bodega || body.cr_bodega) {
             respuesta2 = await bodega.agregar({
-                id_bodega: insertId,
+                idplaza_bodega: insertId,
+                idregion_bodega: body.idregion_plaza,
                 cr_bodega: body.cr_bodega,
                 nombre_bodega: body.nombre_bodega,
             });
@@ -60,5 +61,5 @@ module.exports = function (dbInyectada){
         uno,
         eliminar,
         agregar,
-    }
+    } 
 }

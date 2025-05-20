@@ -32,30 +32,18 @@ module.exports = function (dbInyectada){
     async function agregar(data)
     {
         const authData = {
-            id_bodega: data.id_bodega,
+            idplaza_bodega: data.idplaza_bodega,
+            idregion_bodega: data.idregion_bodega,
             cr_bodega: data.cr_bodega,
             nombre_bodega: data.nombre_bodega
         }
         
-                if (data.id_bodega && parseInt(data.id_bodega) > 0) {
-                    authData.id_bodega = data.id_bodega;
-                }
-
+        if (data.id_bodega) {
+            authData.id_bodega = data.id_bodega;
+        }
         
-                if(data.cr_bodega)
-                {  
-                    authData.cr_bodega = data.cr_bodega
-                }
-
-                if(data.nombre_bodega)
-                {  
-                    authData.nombre_bodega = data.nombre_bodega
-                }
-        
-                console.log(authData)
-        
-                return db.agregar(TABLA, authData);
-    }
+        return db.agregar(TABLA, authData);
+    } 
     
     return {
         todos,
