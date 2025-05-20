@@ -41,35 +41,29 @@ module.exports = function (dbInyectada){
         }
     }
 
-async function agregar(data) {
-  // 1) Buscamos el registro auth si existe
-  console.log("Datos:", data)
-  console.log("Id:", data.idusuario_auth)
-  const consulta = await db.query(TABLA, { idusuario_auth: data.idusuario_auth })
-  console.log("Consulta:", consulta)
-  // 2) Construimos authData
-  const authData = {
-    idusuario_auth: data.idusuario_auth,
-    rol_auth:       data.rol_auth
-  };
+    async function agregar(data) {
+        const consulta = await db.query(TABLA, { idusuario_auth: data.idusuario_auth })
+        
+        const authData = {
+            idusuario_auth: data.idusuario_auth,
+            rol_auth:       data.rol_auth
+        };
 
-  if(consulta.length === 0){
-    authData.id_auth = 0
-  }
-  else{
-    authData.id_auth = consulta[0].id_auth
-  }
+        if(consulta.length === 0){
+            authData.id_auth = 0
+        }
+        else{
+            authData.id_auth = consulta[0].id_auth
+        }
 
-  if (data.usuario_auth)   authData.usuario_auth   = data.usuario_auth;
-  if (data.contrasena_auth) {
-    authData.contrasena_auth = await bcrypt.hash(data.contrasena_auth, 5);
-  }
+        if (data.usuario_auth)   authData.usuario_auth   = data.usuario_auth;
+        if (data.contrasena_auth) {
+            authData.contrasena_auth = await bcrypt.hash(data.contrasena_auth, 5);
+        }
 
-  return db.agregar('auth', authData);
-}
+        return db.agregar('auth', authData);
+    }
 
-
-    
     return {
         agregar,
         login

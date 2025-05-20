@@ -29,20 +29,24 @@ module.exports = function (dbInyectada){
         return db.eliminar(TABLA, body);
     }
 
-    async function agregar(data)
-    {
+    async function agregar(data) {
+        const consulta = await db.query(TABLA, { idplaza_bodega: data.idplaza_bodega })
+            
         const authData = {
             idplaza_bodega: data.idplaza_bodega,
-            idregion_bodega: data.idregion_bodega,
+            idregion_bodega: data.idregion_plaza,
             cr_bodega: data.cr_bodega,
-            nombre_bodega: data.nombre_bodega
+            nombre_bodega: data.nombre_bodega,
+        };
+    
+        if(consulta.length === 0){
+            authData.id_bodega = 0
         }
-        
-        if (data.id_bodega) {
-            authData.id_bodega = data.id_bodega;
+        else{
+            authData.id_bodega = consulta[0].id_bodega
         }
-        
-        return db.agregar(TABLA, authData);
+    
+        return db.agregar('auth', authData);
     } 
     
     return {
