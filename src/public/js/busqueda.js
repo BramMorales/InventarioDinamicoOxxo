@@ -57,8 +57,21 @@ document.getElementById('frm_buscar').addEventListener('submit', async (e)=>{
                 console.error("No se encontró el contenedor de resultados");
                 return;
             }
-    
-            if (!Array.isArray(result.body)) {
+        } 
+        else if(document.getElementById('lst_filtro').textContent == "Activo")
+        {
+            console.log("activos jeje")
+        }
+        else
+        {
+
+        }
+  
+        if (!res.ok) {
+            throw new Error(`Error en la petición: ${res.statusText}`);
+        }
+  
+        if (!Array.isArray(result.body)) {
                 console.error("La respuesta no contiene una lista válida");
                 return;
             } 
@@ -86,20 +99,6 @@ document.getElementById('frm_buscar').addEventListener('submit', async (e)=>{
                     });
                 }
             });
-        } 
-        else if(document.getElementById('lst_filtro').textContent == "Activo")
-        {
-            console.log("activos jeje")
-        }
-        else
-        {
-
-        }
-  
-        if (!res.ok) {
-            throw new Error(`Error en la petición: ${res.statusText}`);
-        }
-  
         
   
     } catch (err) {
