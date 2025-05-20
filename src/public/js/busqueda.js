@@ -2,8 +2,9 @@ const plaza = window._plaza;
 const user = window._usuario;
 
 document.addEventListener('DOMContentLoaded', () => {
-    console.log(plaza)
-    console.log(user)
+    console.log("user:", user, typeof user);
+console.log("plaza:", plaza, typeof plaza);
+
 
     const filterSelect = document.querySelector('.filter-select');
     const filterOptions = document.querySelector('.filter-options');
