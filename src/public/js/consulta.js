@@ -102,6 +102,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             <button 
               class="btn_modificar"
               data-id="${obj[ config.fields[0] ]}"
+              data-tipo="${obj[ config.url ]}"
               style="
                 background-color: #ffffff;
                 border: none;
@@ -135,9 +136,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       const btn = event.target.closest(".btn_eliminar"); // <- clave
 
       if (btn) {
-        const id = btn.dataset.id;
-        const tipo = busqueda.tipo;  // <- asegúrate que existe
-        const eliminarUrl = `/api/${getTipoRuta(tipo)}/eliminar/${id}`;
+        const eliminarUrl = `${btn.dataset.tipo}/eliminar/${btn.dataset.id}`;
 
         try {
           const res = await fetch(eliminarUrl, {
