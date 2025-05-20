@@ -4,6 +4,7 @@ body {
   box-sizing: border-box;
   background-color: #f8f9fa;
   color: #2c3e50;
+  padding: 20px;
 }
 
 .container {
@@ -13,15 +14,59 @@ body {
   align-items: center;
   min-height: 100vh;
 }
+.form-container {
+    max-width: 500px;
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    margin: auto;
+}
+.form-group {
+    margin-bottom: 15px;
+}
 
+label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+}
 /* Encabezado */
 .red-header {
   background-color: #3498db;
   width: 100%;
   height: 100px;
 }
+
+input, select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+input:focus, select:focus {
+    border-color: #007BFF;
+    outline: none;
+}
 .yellow-border {
   border-bottom: 10px solid #2980b9;
+}
+.btn {
+    background-color: #007BFF;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 100%;
+    transition: 0.3s;
+}
+
+.btn:hover {
+    background-color: #0056b3;
 }
 
 /* Logo y usuario */
