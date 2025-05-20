@@ -100,17 +100,16 @@ function eliminar(tabla, consulta) {
     });
 }
 
-function query(tabla, consulta) {
-    const keys = Object.keys(consulta);
-    const conditions = keys.map((key, i) => `${key} = $${i + 1}`).join(' AND ');
-    const values = Object.values(consulta);
+async function query(tabla, consulta) {
+  const keys = Object.keys(consulta);
 
-    return new Promise((resolve, reject) => {
-        const query = `SELECT * FROM ${tabla} WHERE ${conditions}`;
-        conexion.query(query, values, (error, result) => {
-            return error ? reject(error) : resolve(result.rows);
-        });
-    });
+  const key = keys[0];
+  const value = consulta[key];
+
+  const sql = `SELECT * FROM ${tabla} WHERE ${key} = $1`;
+
+  const result = await conexion.query(sql, [value]);
+  return result.rows;
 }
 
 function and(tabla, consulta, consulta2) {
