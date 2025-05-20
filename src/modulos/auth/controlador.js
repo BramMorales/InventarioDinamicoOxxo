@@ -46,13 +46,17 @@ async function agregar(data) {
   console.log("Datos:", data)
   console.log("Id:", data.idusuario_auth)
   const [consulta] = await db.query(TABLA, { idusuario_auth: data.idusuario_auth })
-  console.log("Consulta:", [consulta])
+  console.log("Consulta:", consulta)
   // 2) Construimos authData
-  /*const authData = {
+  const authData = {
     idusuario_auth: data.idusuario_auth,
     rol_auth:       data.rol_auth
   };
 
+  if(consulta == []){
+    console.log("I got you know, you moron!")
+  }
+  /*
   // 3) SI ya había auth, guardamos su PK real
   if (existingAuth?.id_auth) {
     authData.id_auth = existingAuth.id_auth;
