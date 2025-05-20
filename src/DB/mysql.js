@@ -47,7 +47,7 @@ function todos(tabla) {
 }
 
 function agregar(tabla, data) {
-    const key = Object.keys(data).find(k => /^id_/.test(k) || /^idusuario_/.test(k));
+    const key = Object.keys(data).find(k => /^id_/.test(k));
     if (!key) {
       return Promise.reject(new Error("No se encontró campo ID en data"));
     }

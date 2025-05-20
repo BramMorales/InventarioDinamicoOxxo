@@ -12,18 +12,15 @@
 <body class="bg-gray-100">
     <%- include('./partial/nav') %>
     <%- include('./partial/menu') %>
-    <% if (usuario.rol==0) { %>
-        <div class="store-name">
-            <h1>Bienvenido, administrador</h1>
-        </div>
-        <div class="store-name">
-            <img src="/admin.png" width="300" height="300">
-        </div>
-        <div class="store-name">
-            <h1>¡Tengamos una buena sesión de trabajo!</h1>
-        </div>
-    <% }else {%>
         
-    <% }%>
+    <div class="store-name">
+        <h1>Bienvenido, administrador</h1>
+    </div>
+    <div class="store-name">
+        <img src="/admin.png" width="300" height="300">
+    </div>
+    <div class="store-name">
+        <h1>¡Tengamos una buena sesión de trabajo!</h1>
+    </div>
 </body>
 </html>

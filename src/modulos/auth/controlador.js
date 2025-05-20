@@ -44,6 +44,7 @@ module.exports = function (dbInyectada){
     async function agregar(data)
     {
         const authData = {
+            id_auth: 0,
             idusuario_auth: data.idusuario_auth,
             rol_auth: data.rol_auth,
         }
@@ -62,7 +63,7 @@ module.exports = function (dbInyectada){
         {
             authData.contrasena_auth = await bcrypt.hash(data.contrasena_auth.toString(),5);
         }
-        console.log(authData)
+        console.log("Info", authData)
 
         return db.agregar(TABLA, authData);
     }
