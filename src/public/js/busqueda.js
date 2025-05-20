@@ -1,3 +1,6 @@
+const plaza = window._plaza;
+const user = window._usuario;
+
 document.addEventListener('DOMContentLoaded', () => {
     const filterSelect = document.querySelector('.filter-select');
     const filterOptions = document.querySelector('.filter-options');
@@ -45,6 +48,44 @@ document.getElementById('frm_buscar').addEventListener('submit', async (e)=>{
                 method: "GET",
                 headers: { "Content-Type": "application/json" },
             });
+
+            const result = await res.json();
+            console.log(result)
+            const contenedor = document.getElementById("lbl_resultado");
+    
+            if (!contenedor) {
+                console.error("No se encontró el contenedor de resultados");
+                return;
+            }
+    
+            if (!Array.isArray(result.body)) {
+                console.error("La respuesta no contiene una lista válida");
+                return;
+            } 
+    
+            result.body.forEach((resultado) => {
+                if(user != 3 && plaza == resultado.plaza_tienda || user == 3){
+                    const tarjeta = document.createElement("div");
+                    tarjeta.classList.add("tarjeta-resultado");
+        
+                    tarjeta.innerHTML = `
+                        <div class="info">
+                            <button class="ver-resultado" data-id="${resultado.id_tienda}">
+                                <h3>${resultado.cr_tienda} - ${resultado.nombre_tienda}</h3>
+                            </button>
+                        </div>
+                    `;
+        
+                    contenedor.appendChild(tarjeta);
+
+                    const btn = tarjeta.querySelector(".ver-resultado");
+                    btn.addEventListener("click", () => {
+                        const id = btn.dataset.id;
+                        console.log("Hicieron click en tienda:", id);
+                        window.location.href = `/Tienda?id=${id}&type=0`;
+                    });
+                }
+            });
         } 
         else if(document.getElementById('lst_filtro').textContent == "Activo")
         {
@@ -59,41 +100,7 @@ document.getElementById('frm_buscar').addEventListener('submit', async (e)=>{
             throw new Error(`Error en la petición: ${res.statusText}`);
         }
   
-        const result = await res.json();
-        console.log(result)
-        const contenedor = document.getElementById("lbl_resultado");
-  
-        if (!contenedor) {
-            console.error("No se encontró el contenedor de resultados");
-            return;
-        }
-  
-        if (!Array.isArray(result.body)) {
-            console.error("La respuesta no contiene una lista válida");
-            return;
-        }
-   
-        result.body.forEach((resultado) => {
-            const tarjeta = document.createElement("div");
-            tarjeta.classList.add("tarjeta-resultado");
-  
-            tarjeta.innerHTML = `
-                <div class="info">
-                    <button class="ver-resultado" data-id="${resultado.id_tienda}">
-                        <h3>${resultado.cr_tienda} - ${resultado.nombre_tienda}</h3>
-                    </button>
-                </div>
-            `;
-  
-            contenedor.appendChild(tarjeta);
-
-            const btn = tarjeta.querySelector(".ver-resultado");
-            btn.addEventListener("click", () => {
-                const id = btn.dataset.id;
-                console.log("Hicieron click en tienda:", id);
-                window.location.href = `/Tienda?id=${id}&type=0`;
-            });
-        });
+        
   
     } catch (err) {
         console.error("Error en la carga de resultados:", err.message);
