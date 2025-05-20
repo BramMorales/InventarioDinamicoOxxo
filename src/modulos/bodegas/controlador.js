@@ -36,7 +36,7 @@ module.exports = function (dbInyectada){
             
         const authData = {
             idplaza_bodega: data.idplaza_bodega,
-            idregion_bodega: data.idregion_plaza,
+            idregion_bodega: data.idregion_bodega,
             cr_bodega: data.cr_bodega,
             nombre_bodega: data.nombre_bodega,
         };
