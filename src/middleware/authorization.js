@@ -20,7 +20,7 @@ async function soloNoUsuarios(req, res, next) {
 
 }
 
-async function permisoPorRol(rolesPermitidos = [], redireccion = "/") {
+function permisoPorRol(rolesPermitidos = [], redireccion = "/") {
     return async function(req, res, next) {
         const log = await revisarCookie(req);
 
