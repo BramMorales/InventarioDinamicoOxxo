@@ -128,8 +128,36 @@ document.addEventListener('DOMContentLoaded', async () => {
       
       });
           
-      tbody.appendChild(tr);
-    });     
+      tbody.appendChild(tr);  
+    });   
+    
+    document.body.addEventListener('click', async (event) => {
+      const btn = event.target.closest('.btn_eliminar');
+      if (!btn) return; 
+
+      const id = btn.dataset.id;
+      if (!id) return alert("ID no encontrado");
+
+      // Construye la URL de eliminar: /api/<recurso>/eliminar/<id>
+      // partimos de config.url, que es por ejemplo "/api/plazas/"
+      const base = config.url.replace(/\/+$/, '');     // quita slash final
+      const eliminarUrl = `${base}/eliminar/${id}`;    
+
+      try {
+        const res = await fetch(eliminarUrl, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" }
+        });
+
+        if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
+
+        alert("Registro eliminado correctamente");
+        location.reload();  // o btn.closest('tr').remove();
+      } catch (err) {
+        console.error("Error al eliminar:", err);
+        alert("No se pudo eliminar el registro.");
+      }
+    });
   } catch (err) {
     console.error("Error en la carga de resultados:", err.message);
   }
@@ -139,30 +167,3 @@ document.getElementById('btn_anadir').addEventListener('click', () => {
   window.location.href = `/Agregar?type=4&table=${busqueda.tipo}&id=0`
 });
 
-document.body.addEventListener('click', async (event) => {
-  const btn = event.target.closest('.btn_eliminar');
-  if (!btn) return; 
-
-  const id = btn.dataset.id;
-  if (!id) return alert("ID no encontrado");
-
-  // Construye la URL de eliminar: /api/<recurso>/eliminar/<id>
-  // partimos de config.url, que es por ejemplo "/api/plazas/"
-  const base = config.url.replace(/\/+$/, '');     // quita slash final
-  const eliminarUrl = `${base}/eliminar/${id}`;    
-
-  try {
-    const res = await fetch(eliminarUrl, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" }
-    });
-
-    if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
-
-    alert("Registro eliminado correctamente");
-    location.reload();  // o btn.closest('tr').remove();
-  } catch (err) {
-    console.error("Error al eliminar:", err);
-    alert("No se pudo eliminar el registro.");
-  }
-});
