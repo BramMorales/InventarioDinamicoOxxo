@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         tienda: "Regiones"
       }
     };
-          
+      
     const config = endpoints[busqueda.tipo];
 
     if (!config) {
@@ -75,7 +75,9 @@ document.addEventListener('DOMContentLoaded', async () => {
          
       config.fields.forEach(field => {
         const td = document.createElement("td");
-
+        console.log(config.url)
+        console.log(obj[ config.url ])
+        console.log(obj[ config.fields[0] ])
         if (field === "__btn__") {
           td.innerHTML = `
             <button 
