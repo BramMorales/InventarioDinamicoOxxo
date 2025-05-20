@@ -81,6 +81,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             <button 
               class="btn_eliminar"
               data-id="${obj[ config.fields[0] ]}"
+              data-tipo="${obj[ config.url ]}"
               style="
                 background-color: #ffffff;
                 border: none;
@@ -102,7 +103,6 @@ document.addEventListener('DOMContentLoaded', async () => {
             <button 
               class="btn_modificar"
               data-id="${obj[ config.fields[0] ]}"
-              data-tipo="${obj[ config.url ]}"
               style="
                 background-color: #ffffff;
                 border: none;
