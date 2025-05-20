@@ -75,7 +75,7 @@ document.addEventListener('DOMContentLoaded', async () => {
          
       config.fields.forEach(field => {
         const td = document.createElement("td");
-        
+
         if (field === "__btn__") {
           td.innerHTML = `
             <button 
@@ -136,7 +136,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       const btn = event.target.closest(".btn_eliminar"); // <- clave
 
       if (btn) {
-        const eliminarUrl = `${btn.dataset.tipo}/eliminar/${btn.dataset.id}`;
+        const eliminarUrl = `${btn.dataset.tipo}eliminar/${btn.dataset.id}`;
 
         try {
           const res = await fetch(eliminarUrl, {
