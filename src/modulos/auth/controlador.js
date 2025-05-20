@@ -45,7 +45,7 @@ async function agregar(data) {
   // 1) Buscamos el registro auth si existe
   console.log("Datos:", data)
   console.log("Id:", data.idusuario_auth)
-  const consulta = await db.query(TABLA, { idusuario_auth: 1 })
+  const consulta = await db.query(TABLA, { idusuario_auth: data.idusuario_auth })
   console.log("Consulta:", consulta)
   // 2) Construimos authData
   const authData = {
@@ -54,25 +54,18 @@ async function agregar(data) {
   };
 
   if(consulta.length === 0){
-    console.log("I got you know, you moron!")
+    authData.id_auth = 0
   }
   else{
-    console.log("Abr")
-  }
-  /*
-  // 3) SI ya había auth, guardamos su PK real
-  if (existingAuth?.id_auth) {
-    authData.id_auth = existingAuth.id_auth;
+    authData.id_auth = consulta[0].id_auth
   }
 
-  // 4) Campos opcionales
   if (data.usuario_auth)   authData.usuario_auth   = data.usuario_auth;
   if (data.contrasena_auth) {
     authData.contrasena_auth = await bcrypt.hash(data.contrasena_auth, 5);
   }
 
-  // Ésta vez sí tendrás `id_auth` en authData y se hará UPDATE
-  return db.agregar('auth', authData);*/
+  return db.agregar('auth', authData);
 }
 
 
