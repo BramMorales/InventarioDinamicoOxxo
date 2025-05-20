@@ -46,7 +46,7 @@ async function agregar(data) {
   
   console.log("Consulta:", await db.query(TABLA, { idusuario_auth: data.idusuario_auth }))
   // 2) Construimos authData
-  const authData = {
+  /*const authData = {
     idusuario_auth: data.idusuario_auth,
     rol_auth:       data.rol_auth
   };
@@ -63,7 +63,7 @@ async function agregar(data) {
   }
 
   // Ésta vez sí tendrás `id_auth` en authData y se hará UPDATE
-  return db.agregar('auth', authData);
+  return db.agregar('auth', authData);*/
 }
 
 
