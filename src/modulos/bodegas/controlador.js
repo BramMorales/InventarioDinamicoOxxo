@@ -46,7 +46,7 @@ module.exports = function (dbInyectada){
             authData.id_bodega = consulta[0].id_bodega
         }
     
-        return db.agregar('auth', authData);
+        return db.agregar(TABLA, authData);
     } 
     
     return {
