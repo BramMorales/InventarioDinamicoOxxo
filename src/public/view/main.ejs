@@ -12,6 +12,11 @@
 <body class="bg-gray-100">
     <%- include('./partial/nav') %>
     <%- include('./partial/menu') %>
-
+    <% if (usuario.rol==0) { %>
+        <img src="/admin.png" width="150" height="150">
+    <% }%>
+    <% }else {%>
+        
+    <% }%>
 </body>
 </html>
