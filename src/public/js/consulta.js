@@ -140,32 +140,29 @@ document.getElementById('btn_anadir').addEventListener('click', () => {
 });
 
 document.body.addEventListener('click', async (event) => {
-  if (event.target && event.target.dataset.class === 'btn_eliminar') {
-    const payload = {
-      id_activofijo: event.target.dataset.id,
-      ubicacion_activo: user,
-      tipoubicacion_activofijo: 1,
-    }
+  const btn = event.target.closest('.btn_eliminar');
+  if (!btn) return; 
 
-    try {
-      const res = await fetch("/api/activosfijos/agregar", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
-      
-      const result = await res.json();
+  const id = btn.dataset.id;
+  if (!id) return alert("ID no encontrado");
 
-      if(busqueda.tipo==2)
-      {
-        window.location.href = `/Tienda?plaza=${busqueda.plaza}&region=${busqueda.region}&type=2`;
-      }
-      else{
-        window.location.href = `/Tienda?id=${busqueda.id}&type=${busqueda.tipo}`;
-      } 
-    } catch (error) {
-      console.error("Error en el registro:", error);
-      alert("No se pudo conectar con el servidor.");
-    }
+  // Construye la URL de eliminar: /api/<recurso>/eliminar/<id>
+  // partimos de config.url, que es por ejemplo "/api/plazas/"
+  const base = config.url.replace(/\/+$/, '');     // quita slash final
+  const eliminarUrl = `${base}/eliminar/${id}`;    
+
+  try {
+    const res = await fetch(eliminarUrl, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" }
+    });
+
+    if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
+
+    alert("Registro eliminado correctamente");
+    location.reload();  // o btn.closest('tr').remove();
+  } catch (err) {
+    console.error("Error al eliminar:", err);
+    alert("No se pudo eliminar el registro.");
   }
 });
