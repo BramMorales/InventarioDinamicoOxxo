@@ -41,42 +41,31 @@ module.exports = function (dbInyectada){
         }
     }
 
-    async function agregar(data) {
-  // Primero, busca si ya existe un auth para ese usuario:
-  let existingAuth;
-  if (data.idusuario_auth) {
-    const rows = await db.query(TABLA, { idusuario_auth: data.idusuario_auth });
-    existingAuth = Array.isArray(rows) ? rows[0] : rows;
-  }
+async function agregar(data) {
+  // 1) Buscamos el registro auth si existe
+  const [existingAuth] = await db.query('auth', { idusuario_auth: data.idusuario_auth }) || [];
 
-  // Ahora arma el objeto:
+  // 2) Construimos authData
   const authData = {
     idusuario_auth: data.idusuario_auth,
-    rol_auth: data.rol_auth,
+    rol_auth:       data.rol_auth
   };
 
-  // Si encontramos un id_auth existente, inclúyelo para forzar UPDATE
-  if (existingAuth && existingAuth.id_auth) {
+  // 3) SI ya había auth, guardamos su PK real
+  if (existingAuth?.id_auth) {
     authData.id_auth = existingAuth.id_auth;
   }
 
-  // Resto de campos condicionales
-  if (data.usuario_auth) {
-    authData.usuario_auth = data.usuario_auth;
-  }
-  if (data.rol_auth) {
-    authData.rol_auth = data.rol_auth;
-  }
+  // 4) Campos opcionales
+  if (data.usuario_auth)   authData.usuario_auth   = data.usuario_auth;
   if (data.contrasena_auth) {
-    authData.contrasena_auth = await bcrypt.hash(
-      data.contrasena_auth.toString(),
-      5
-    );
+    authData.contrasena_auth = await bcrypt.hash(data.contrasena_auth, 5);
   }
 
-  // Llama a tu función genérica: si authData.id_auth existe, hará UPDATE
-  return db.agregar(TABLA, authData);
+  // Ésta vez sí tendrás `id_auth` en authData y se hará UPDATE
+  return db.agregar('auth', authData);
 }
+
 
     
     return {
