@@ -82,7 +82,7 @@ document.getElementById('frm_buscar').addEventListener('submit', async (e)=>{
             } 
     
             result.body.forEach((resultado) => {
-                console.log("resultado.plaza_tienda:", resultado.plaza_tienda, typeof resultado.plaza_tienda);
+                console.log("resultado.plaza_tienda:", resultado.idplaza_tienda, typeof resultado.idplaza_tienda);
 
                 if((user !== '3' && plaza === resultado.idplaza_tienda) || user === '3'){
                     console.log("Si puedo hijo de puta")
