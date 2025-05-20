@@ -319,32 +319,44 @@ document.addEventListener('DOMContentLoaded', async () => {
         form.addEventListener("submit", async (e) => {
           e.preventDefault();
 
+          // 1) Armas el objeto `data` como ya lo haces:
           const data = {};
-            
           config.campos.forEach((c, i) => {
             if (c.type === "select") {
               data[c.name] = form.elements[c.name].value;
             } else if (i === 0 && c.value !== undefined) {
-              if(busqueda.id != 0){
-                data[c.name] = parseInt(busqueda.id);
-              }
-              else{
-                data[c.name] = 0;
-              }
+              data[c.name] = busqueda.id != 0
+                ? parseInt(busqueda.id)
+                : 0;
             } else {
               data[c.name] = form.elements[c.name].value || "";
             }
           });
-          
+
+          // 2) Si estamos en el formulario de PLAZA (tabla '3'),
+          //    añadimos ocultos cr_bodega y nombre_bodega en `data`:
+          if (busqueda.tabla === '3') {
+            // generar CR: prefijo BG + 3 chars al azar, mayúsculas
+            data.cr_bodega = 'BG' + Math.random()
+              .toString(36)
+              .substring(2, 5)
+              .toUpperCase();
+
+            // generar Nombre Bodega: "Bodega " + nombre_plaza
+            const nb = 'Bodega ' + data.nombre_plaza;
+            // truncar a 20 chars
+            data.nombre_bodega = nb.length > 20
+              ? nb.slice(0, 20)
+              : nb;
+          }
+
           try {
             const res = await fetch(config.url, {
               method: "POST",
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify(data)
             });
-            
             if (!res.ok) throw new Error("Error en el registro");
-            
             alert("Registro exitoso");
             location.href = "/Inicio";
           } catch (err) {
