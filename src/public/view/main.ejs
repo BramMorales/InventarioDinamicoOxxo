@@ -13,9 +13,11 @@
     <%- include('./partial/nav') %>
     <%- include('./partial/menu') %>
     <% if (usuario.rol==0) { %>
-        <h1>Bienvenido, administrador</h1>
-        <img src="/admin.png" width="150" height="150">
-        <h1>¡Tengamos una buena sesión de trabajo!</h1>
+        <div class="store-name">
+            <h1>Bienvenido, administrador</h1>
+            <img src="/admin.png" width="150" height="150">
+            <h1>¡Tengamos una buena sesión de trabajo!</h1>
+        </div>
     <% }else {%>
         
     <% }%>
