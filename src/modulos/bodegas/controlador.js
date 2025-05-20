@@ -30,6 +30,8 @@ module.exports = function (dbInyectada){
     }
 
     async function agregar(data) {
+
+        console.log(data)
         const consulta = await db.query(TABLA, { idplaza_bodega: data.idplaza_bodega })
             
         const authData = {
