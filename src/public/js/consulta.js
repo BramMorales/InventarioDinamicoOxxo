@@ -75,15 +75,13 @@ document.addEventListener('DOMContentLoaded', async () => {
          
       config.fields.forEach(field => {
         const td = document.createElement("td");
-        console.log(config.url)
-        console.log(obj[ config.url ])
-        console.log(obj[ config.fields[0] ])
+        
         if (field === "__btn__") {
           td.innerHTML = `
             <button 
               class="btn_eliminar"
               data-id="${obj[ config.fields[0] ]}"
-              data-tipo="${obj[ config.url ]}"
+              data-tipo="${config.url}"
               style="
                 background-color: #ffffff;
                 border: none;
