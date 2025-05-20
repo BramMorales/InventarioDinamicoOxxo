@@ -66,8 +66,8 @@ app.use(error);
 app.get("/", authorization.soloNoUsuarios, (req,res)=>{res.render('login')});
 
 //Tecnico
-app.get("/Inicio", authorization.soloUsuarios, (req,res)=>{res.render('mainpage_tecnico')});
-app.get("/_Inicio", authorization.soloUsuarios, authorization.permisos, (req,res)=>{res.render('main')});
+app.get("/Inicio", authorization.soloUsuarios, authorization.permisoTec, (req,res)=>{res.render('mainpage_tecnico')});
+app.get("/_Inicio", authorization.soloUsuarios, authorization.permisoNoTec, (req,res)=>{res.render('main')});
 app.get("/Busqueda", authorization.soloUsuarios, (req,res)=>{res.render('busqueda')});
 app.get("/Tecnicos", authorization.soloUsuarios, (req,res)=>{res.render('tecnicos')});
 app.get("/Tienda", authorization.soloUsuarios, (req,res)=>{res.render('tienda')});

@@ -20,9 +20,16 @@ async function soloNoUsuarios(req, res, next) {
 
 }
 
-async function permisos(req, res, next) {
+async function permisoNoTec(req, res, next) {
     const log = await revisarCookie(req);
     if (log.rol_auth == 1) return res.redirect("/Inicio");
+    return next();
+
+}
+
+async function permisoTec(req, res, next) {
+    const log = await revisarCookie(req);
+    if (log.rol_auth != 1) return res.redirect("/_Inicio");
     return next();
 
 }
@@ -52,5 +59,6 @@ async function revisarCookie(req) {
 module.exports = {
     soloUsuarios,
     soloNoUsuarios,
-    permisos,
+    permisoNoTec,
+    permisoTec
 };
