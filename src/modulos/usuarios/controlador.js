@@ -21,7 +21,7 @@ module.exports = function (dbInyectada){
 
     function eliminar(id_usuario)
     {
-        return db.eliminar(TABLA, id_usuario);
+        return db.eliminar(TABLA, {id_usuario: id_usuario});
     }
 
     async function agregar(body)

@@ -11,7 +11,7 @@ router.get('/busqueda/:valor', busqueda);
 
 router.post('/agregar', agregar);
 
-router.put('/eliminar', eliminar);
+router.put('/eliminar/:id_tienda', eliminar);
 
 //Funciones
 async function todos (req, res, next){
@@ -49,7 +49,7 @@ async function busqueda(req, res, next){
 
 async function eliminar (req, res, next) {
     try{
-        const items = await controlador.eliminar(req.body);
+        const items = await controlador.eliminar(req.params.id_tienda);
         respuesta.success(req, res, 'Item eliminado', 200);
     }
     catch (err) {

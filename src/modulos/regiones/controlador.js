@@ -18,9 +18,9 @@ module.exports = function (dbInyectada){
         return db.query(TABLA, {id_region: id_region});
     }
 
-    function eliminar(body)
+    function eliminar(id_region)
     {
-        return db.eliminar(TABLA, body);
+        return db.eliminar(TABLA, {id_region: id_region});
     }
 
     function agregar(body)

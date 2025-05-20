@@ -23,9 +23,9 @@ module.exports = function (dbInyectada){
         return db.or(TABLA, {cr_tienda: valor}, {nombre_tienda: valor});
     }
 
-    function eliminar(body)
+    function eliminar(id_tienda)
     {
-        return db.eliminar(TABLA, body);
+        return db.eliminar(TABLA, {id_tienda: id_tienda});
     }
 
     function agregar(body)

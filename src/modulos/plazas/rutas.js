@@ -10,7 +10,7 @@ router.get('/:id_plaza', uno);
 
 router.post('/agregar', agregar);
 
-router.put('/eliminar', eliminar);
+router.put('/eliminar/:id_plaza', eliminar);
 
 //Funciones
 async function todos (req, res, next){
@@ -37,7 +37,7 @@ async function uno(req, res, next){
 
 async function eliminar (req, res, next) {
     try{
-        const items = await controlador.eliminar(req.body);
+        const items = await controlador.eliminar(req.params.id_plaza);
         respuesta.success(req, res, 'Item eliminado', 200);
     }
     catch (err) {

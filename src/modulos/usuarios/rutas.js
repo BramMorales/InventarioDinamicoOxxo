@@ -10,7 +10,7 @@ router.get('/:id_usuario', uno);
 
 router.post('/agregar', agregar);
 
-router.put('/eliminar', eliminar);
+router.put('/eliminar/:id_usuario', eliminar);
 
 //Funciones
 async function todos (req, res, next){
