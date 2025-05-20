@@ -45,7 +45,7 @@ async function agregar(data) {
   // 1) Buscamos el registro auth si existe
   console.log("Datos:", data)
   console.log("Id:", data.idusuario_auth)
-  const [consulta] = await db.query(TABLA, { idusuario_auth: data.idusuario_auth })
+  const consulta = await db.query(TABLA, { idusuario_auth: data.idusuario_auth })
   console.log("Consulta:", consulta)
   // 2) Construimos authData
   const authData = {
@@ -53,8 +53,11 @@ async function agregar(data) {
     rol_auth:       data.rol_auth
   };
 
-  if(consulta == []){
+  if(consulta.length === 0){
     console.log("I got you know, you moron!")
+  }
+  else{
+    console.log("Abr")
   }
   /*
   // 3) SI ya había auth, guardamos su PK real
