@@ -79,6 +79,7 @@ document.getElementById('frm_buscar').addEventListener('submit', async (e)=>{
     
             result.body.forEach((resultado) => {
                 if(user != 3 && plaza == resultado.plaza_tienda || user == 3){
+                    console.log("Si puedo hijo de puta")
                     const tarjeta = document.createElement("div");
                     tarjeta.classList.add("tarjeta-resultado");
         
