@@ -6,9 +6,9 @@ const dbconfig = {
     user: config.postgresql.user,
     password: config.postgresql.password,
     database: config.postgresql.database,
-    port: 5432, // Puerto por defecto de PostgreSQL
+    port: 5432,
     ssl: {
-        rejectUnauthorized: false // Si estás utilizando un servicio que requiere SSL, como Render
+        rejectUnauthorized: false 
     }
 };
 
@@ -20,18 +20,18 @@ function conPostgres() {
     conexion.connect((err) => {
         if (err) {
             console.log('[db err]', err);
-            setTimeout(conPostgres, 200); // Intentar reconectar
+            setTimeout(conPostgres, 200);
         } else {
-            console.log('DB Lista :D');
+            console.log('Database ready to be used!');
         }
     });
 
     conexion.on('error', err => {
         console.log('[db err]', err);
         if (err.code === 'ECONNREFUSED') {
-            conPostgres(); // Reconectar si se pierde la conexión
+            conPostgres(); 
         } else {
-            throw err; // Otro error fatal
+            throw err;
         }
     });
 }
@@ -41,25 +41,22 @@ conPostgres();
 function todos(tabla) {
     return new Promise((resolve, reject) => {
         conexion.query(`SELECT * FROM ${tabla}`, (error, result) => {
-            return error ? reject(error) : resolve(result.rows); // `rows` para PostgreSQL
+            return error ? reject(error) : resolve(result.rows);
         });
     });
 }
 
 function agregar(tabla, data) {
-    // 1. Detección de la clave primaria en data:
     const key = Object.keys(data).find(k => /^id_/.test(k) || /^idusuario_/.test(k));
     if (!key) {
       return Promise.reject(new Error("No se encontró campo ID en data"));
     }
   
-    // 2. Separamos el valor de ID y el resto de columnas
     const idValue = data[key];
     const updates = { ...data };
     delete updates[key];
   
     if (!idValue) {
-      // ---- SIN ID: hacemos INSERT ----
       const cols = Object.keys(updates);
       const vals = Object.values(updates);
       const placeholders = vals.map((_, i) => `$${i+1}`).join(', ');
@@ -73,12 +70,11 @@ function agregar(tabla, data) {
         conexion.query(sql, vals, (err, result) => err ? rej(err) : res(result.rows[0]) );
       });
     } else {
-      // ---- CON ID: hacemos UPDATE ----
       const cols = Object.keys(updates);
       const vals = Object.values(updates);
-      // construimos SET col1=$1, col2=$2, ...
+
       const setClause = cols.map((c, i) => `${c} = $${i+1}`).join(', ');
-      // el parámetro final es el idValue
+
       const sql = `
         UPDATE ${tabla}
         SET ${setClause}
@@ -91,7 +87,6 @@ function agregar(tabla, data) {
     }
   }
   
-
 function eliminar(tabla, consulta) {
     const keys = Object.keys(consulta);
     const conditions = keys.map((key, i) => `${key} = $${i + 1}`).join(' AND ');

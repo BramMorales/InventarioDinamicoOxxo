@@ -11,41 +11,39 @@
     <link rel="stylesheet" href="/style.css" />
 </head>
 <body class="bg-gray-100">
-    <%- include('./partial/nav') %>
-    <%- include('./partial/menu') %>
+  <%- include('./partial/nav') %>
+  <%- include('./partial/menu') %>
 
-    <div class="store-name">
-      <h5 id="lbl_tienda"></h5>
+  <div class="store-name">
+    <h5 id="lbl_tienda"></h5>
+  </div>
+  <% if (usuario.rol == 0) { %>
+    <div class="table-container">
+      <form id="frm_agregar" name="frm_agregar">
+      </form>
     </div>
-    <% if (usuario.rol == 0) { %>
-      <div class="table-container">
-        <form id="frm_agregar" name="frm_agregar">
-        </form>
-      </div>
-    <%} else {%>
-      <%- include('./partial/tabla') %>
-      <div class="add-change-buttons">
-        <h2>Motivo:</h2><br>
-        <select>
-          <option value="value1">Integracion</option>
-          <option value="value2">Cambio dinamico</option>
-        </select>
-      </div>
+  <%} else {%>
+    <%- include('./partial/tabla') %>
+    <div class="add-change-buttons">
+      <h2>Motivo:</h2><br>
+      <select>
+        <option value="value1">Integracion</option>
+        <option value="value2">Cambio dinamico</option>
+      </select>
+    </div>
 
-      <div class="add-change-buttons">
-        <h2>Comentarios:</h2><br>
-        <input type="text" id="comentarios_af" name="comentarios_af" />
-      </div>
+    <div class="add-change-buttons">
+      <h2>Comentarios:</h2><br>
+      <input type="text" id="comentarios_af" name="comentarios_af" />
+    </div>
 
-      <div class="add-change-buttons">
-        <button class="add-button">Añadir</button>
-      </div>
-    <%}%>
+    <div class="add-change-buttons">
+      <button class="add-button">Añadir</button>
+    </div>
+  <%}%>   
     
-    
- 
-    <script>
-        window._usuario = "<%= usuario.id %>";
-    </script>
+  <script>
+    window._usuario = "<%= usuario.id %>";
+  </script>
 </body>
 </html>

@@ -1,55 +1,55 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="/Icono.png">
-    <title id="lbl_titulo">OXXO - </title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="/tienda.js" defer></script>
-    <link rel="stylesheet" href="/style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="/Icono.png">
+  <title id="lbl_titulo">OXXO - </title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="/tienda.js" defer></script>
+  <link rel="stylesheet" href="/style.css" />
 </head>
 <body class="bg-gray-100">
-    <%- include('./partial/nav') %>
-    <%- include('./partial/menu') %>
+  <%- include('./partial/nav') %>
+  <%- include('./partial/menu') %>
 
-    <div class="store-name">
-      <h5 id="lbl_tienda">Mi inventario</h5>
-    </div>
+  <div class="store-name">
+    <h5 id="lbl_tienda">Mi inventario</h5>
+  </div>
 
-    <div class="add-change-buttons">
-        <button class="add-button" id="btn_anadir">+ Añadir</button>
-    </div>
+  <div class="add-change-buttons">
+    <button class="add-button" id="btn_anadir">+ Añadir</button>
+  </div>
 
-    <%- include('./partial/tabla') %>
-    <div id="modal_eliminar" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
-      <div class="bg-white rounded-xl shadow-lg p-6 w-96 space-y-4">
-        <h2 class="text-xl font-bold">Confirmar eliminación</h2>
-        <p id="modal_info" class="text-sm text-gray-700"></p>
+  <%- include('./partial/tabla') %>
+  <div id="modal_eliminar" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
+    <div class="bg-white rounded-xl shadow-lg p-6 w-96 space-y-4">
+      <h2 class="text-xl font-bold">Confirmar eliminación</h2>
+      <p id="modal_info" class="text-sm text-gray-700"></p>
 
-        <label class="block">
-          <span class="text-sm font-medium">Motivo</span>
-          <select id="motivo_input" class="w-full mt-1 border rounded p-1">
-            <option value="Duplicado">Depreciado</option>
-            <option value="Error de captura">Garantia</option>
-          </select>
-        </label>
+      <label class="block">
+        <span class="text-sm font-medium">Motivo</span>
+        <select id="motivo_input" class="w-full mt-1 border rounded p-1">
+          <option value="Duplicado">Depreciado</option>
+          <option value="Error de captura">Garantia</option>
+        </select>
+      </label>
 
-        <label class="block">
-          <span class="text-sm font-medium">Comentarios</span>
-          <input type="text" id="comentario_input" class="w-full mt-1 border rounded p-1" placeholder="Detalles opcionales">
-        </label>
+      <label class="block">
+        <span class="text-sm font-medium">Comentarios</span>
+        <input type="text" id="comentario_input" class="w-full mt-1 border rounded p-1" placeholder="Detalles opcionales">
+      </label>
 
-        <div class="flex justify-end space-x-2 pt-2">
-          <button id="cancelar_btn" class="px-3 py-1 bg-gray-300 rounded hover:bg-gray-400">Cancelar</button>
-          <button id="aceptar_btn" class="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600">Aceptar</button>
-        </div>
+      <div class="flex justify-end space-x-2 pt-2">
+        <button id="cancelar_btn" class="px-3 py-1 bg-gray-300 rounded hover:bg-gray-400">Cancelar</button>
+        <button id="aceptar_btn" class="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600">Aceptar</button>
       </div>
     </div>
+  </div>
 
-    <script>
-      window._usuario = "<%= usuario.id %>";
-    </script>
+  <script>
+    window._usuario = "<%= usuario.id %>";
+  </script>
 </body>
 </html>

@@ -20,7 +20,6 @@ module.exports = function (dbInyectada){
 
     function busqueda(valor)
     {
-        console.log(valor)
         return db.or(TABLA, {cr_tienda: valor}, {nombre_tienda: valor});
     }
 

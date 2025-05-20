@@ -25,32 +25,35 @@ module.exports = function (dbInyectada){
     }
 
     async function agregar(body) {
-    console.log(body);
+        console.log(body);
 
-    const plaza = {
-        id_plaza: body.id_plaza,
-        idregion_plaza: body.idregion_plaza,
-        nombre_plaza: body.nombre_plaza
-    };
+        const plaza = {
+            id_plaza: body.id_plaza,
+            idregion_plaza: body.idregion_plaza,
+            nombre_plaza: body.nombre_plaza
+        };
 
-    const respuesta = await db.agregar(TABLA, plaza);
-    console.log(respuesta);
+        const respuesta = await db.agregar(TABLA, plaza);
+        console.log(respuesta);
 
-    let insertId = 0;
-    body.id_plaza == 0 ? insertId = respuesta.id_plaza : insertId = body.id_plaza;
-    console.log('ID de plaza insertado o usado:', insertId);
+        let insertId = 0;
+        body.id_plaza == 0 ? insertId = respuesta.id_plaza : insertId = body.id_plaza;
+        console.log('ID de plaza insertado o usado:', insertId);
 
-    let respuesta2 = ''        
-    respuesta2 = await bodega.agregar({
-            id_bodega: insertId,
-            cr_bodega: body.cr_bodega,
-            nombre_bodega: body.nombre_bodega,
-        });
+        let respuesta2 = '';
 
-        console.log(respuesta2);
+        if (body.nombre_bodega || body.cr_bodega) {
+            respuesta2 = await bodega.agregar({
+                id_bodega: insertId,
+                cr_bodega: body.cr_bodega,
+                nombre_bodega: body.nombre_bodega,
+            });
 
-    return respuesta2 || respuesta;
-}
+            console.log(respuesta2);
+        }
+
+        return respuesta2 || respuesta;
+    }
     
     return {
         todos,

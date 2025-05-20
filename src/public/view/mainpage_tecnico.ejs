@@ -11,18 +11,18 @@
     <link rel="stylesheet" href="/style.css" />
 </head>
 <body class="bg-gray-100">
-    <%- include('./partial/nav') %>
+  <%- include('./partial/nav') %>
 
-    <%- include('./partial/menu') %>
+  <%- include('./partial/menu') %>
 
-    <div class="store-name">
-      <h5 id="lbl_tienda">Mi inventario</h5>
-    </div>
+  <div class="store-name">
+    <h5 id="lbl_tienda">Mi inventario</h5>
+  </div>
     
-    <%- include('./partial/tabla') %>
+  <%- include('./partial/tabla') %>
 
-    <script>
-      window._usuario = "<%= usuario.id %>";
-    </script>
+  <script>
+    window._usuario = "<%= usuario.id %>";
+  </script>
 </body>
 </html>
