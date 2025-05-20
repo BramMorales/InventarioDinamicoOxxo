@@ -43,9 +43,8 @@ module.exports = function (dbInyectada){
 
 async function agregar(data) {
   // 1) Buscamos el registro auth si existe
-  const blablabla = await db.query('auth', { idusuario_auth: data.idusuario_auth }) || [];
-
-  console.log("Consulta:", blablabla)
+  
+  console.log("Consulta:", await db.query(TABLA, { idusuario_auth: data.idusuario_auth }))
   // 2) Construimos authData
   const authData = {
     idusuario_auth: data.idusuario_auth,
