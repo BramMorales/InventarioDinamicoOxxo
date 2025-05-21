@@ -388,7 +388,7 @@ document.querySelector('.add-button')?.addEventListener('click', async () => {
     };
   
     try {
-      await fetch("http://localhost:4000/api/activosfijos/agregar", {
+      await fetch("/api/activosfijos/agregar", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),

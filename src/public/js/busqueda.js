@@ -65,11 +65,23 @@ document.getElementById('frm_buscar').addEventListener('submit', async (e)=>{
         } 
         else if(document.getElementById('lst_filtro').textContent == "Activo")
         {
-            console.log("activos jeje")
+            res = await fetch("/api/tiendas/busqueda/" + valor, {
+                method: "GET",
+                headers: { "Content-Type": "application/json" },
+            });
+
+            result = await res.json();
+            console.log(result)
+            const contenedor = document.getElementById("lbl_resultado");
+    
+            if (!contenedor) {
+                console.error("No se encontró el contenedor de resultados");
+                return;
+            }
         }
         else
         {
-
+            console.log("Categoría inválida")
         }
   
         if (!res.ok) {
@@ -82,10 +94,7 @@ document.getElementById('frm_buscar').addEventListener('submit', async (e)=>{
             } 
     
             result.body.forEach((resultado) => {
-                console.log("resultado.plaza_tienda:", resultado.idplaza_tienda, typeof resultado.idplaza_tienda);
-
                 if((user !== '3' && parseInt(plaza) === resultado.idplaza_tienda) || user === '3'){
-                    console.log("Si puedo hijo de puta")
                     const tarjeta = document.createElement("div");
                     tarjeta.classList.add("tarjeta-resultado");
         
